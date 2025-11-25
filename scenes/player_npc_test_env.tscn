@@ -58,4 +58,4 @@ script = ExtResource("4_h746w")
 [node name="TurnLabel" type="Label" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
-text = "teste"
+text = "PLAYER TURN"

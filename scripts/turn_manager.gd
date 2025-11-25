@@ -29,6 +29,7 @@ func now_its_players_turn() -> void:
 	for npc: Npc in npcs:
 		npc.my_turn = false
 	print('PLAYER TURN')
+	turn_label.text = "PLAYER TURN"
 	player.my_turn = true
 	turn_flag = true
 
@@ -38,6 +39,7 @@ func now_its_npcs_turn() -> void:
 		npc.is_moving = true
 		npc.select_prop_flag = true
 	print('NPCS TURN')
+	turn_label.text = "NPC TURN"
 	turn_flag = false
 	
 #TEST
