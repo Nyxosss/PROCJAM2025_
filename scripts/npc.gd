@@ -80,14 +80,16 @@ func select_random_destination_prop() -> void:
 		select_prop_flag = false
 		
 func hide_behind_prop(delta: float) -> void:
-	if global_position.distance_to(destination_prop.back_area.global_position) > 0.3:
+	if global_position.distance_to(destination_prop.back_area.global_position) > 0.01:
 		global_position = global_position.move_toward(destination_prop.back_area.global_position, delta * 5.0)
 	else:
 		global_position = destination_prop.back_area.global_position
 		current_prop = destination_prop
 		is_hiding = true
 		is_moving = false
-		end_turn()
+		my_turn = false
+		player.my_turn = true
+		
 # ------------------------- ACTIONS -------------------------
 
 func die() -> void:
@@ -102,6 +104,3 @@ func attack(player: Player) -> void:
 
 func run() -> void:
 	pass
-
-func end_turn() -> void:
-	my_turn = false

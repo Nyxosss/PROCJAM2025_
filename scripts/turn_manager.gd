@@ -18,7 +18,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if player != null and not player.my_turn and turn_flag:
 		now_its_npcs_turn()
-	elif player != null and player.my_turn and not turn_flag:
+	if player != null and player.my_turn and not turn_flag:
 		now_its_players_turn()
 	
 func _input(event: InputEvent) -> void:

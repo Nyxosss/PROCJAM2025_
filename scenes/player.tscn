@@ -9,8 +9,8 @@
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_3vyb7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_u8vuu")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Mesh" type="MeshInstance3D" parent="Collision"]
 mesh = SubResource("CapsuleMesh_3vyb7")
