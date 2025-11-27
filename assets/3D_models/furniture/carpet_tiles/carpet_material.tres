@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://0xyt0gimcnru"]
+
+[ext_resource type="Texture2D" uid="uid://c65k5qvlosxo" path="res://assets/textures/Pattern_01_Retro_Carpet_BlueRed_1.png" id="1_fl73y"]
+
+[resource]
+albedo_texture = ExtResource("1_fl73y")

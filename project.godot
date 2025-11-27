@@ -20,6 +20,18 @@ config/icon="res://icon.svg"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "orange",
+"res://assets/3D_models/": "yellow",
+"res://assets/3D_models/furniture/": "yellow",
+"res://assets/3D_models/wall_tiles/": "yellow",
+"res://assets/UI/": "red",
+"res://assets/UI/fonts/": "red",
+"res://assets/textures/": "yellow"
+}
+
 [input]
 
 end_turn={
