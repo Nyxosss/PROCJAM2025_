@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c65k5qvlosxo"
-path.s3tc="res://.godot/imported/Pattern_01_Retro_Carpet_BlueRed_1.png-7302025f4604f455d885fd498c85b59c.s3tc.ctex"
+path.s3tc="res://.godot/imported/Pattern_01_Retro_Carpet_BlueRed_1.png-48fb265bef2d9607dcaeb2f37b9b2e0f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/Pattern_01_Retro_Carpet_BlueRed_1.png"
-dest_files=["res://.godot/imported/Pattern_01_Retro_Carpet_BlueRed_1.png-7302025f4604f455d885fd498c85b59c.s3tc.ctex"]
+source_file="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Pattern_01_Retro_Carpet_BlueRed_1.png"
+dest_files=["res://.godot/imported/Pattern_01_Retro_Carpet_BlueRed_1.png-48fb265bef2d9607dcaeb2f37b9b2e0f.s3tc.ctex"]
 
 [params]
 

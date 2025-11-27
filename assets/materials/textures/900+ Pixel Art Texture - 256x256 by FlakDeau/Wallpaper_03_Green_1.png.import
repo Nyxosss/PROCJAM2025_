@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjmb1g8illvky"
-path.s3tc="res://.godot/imported/Fabric_Twine_01_Yellow_1.png-71d596c8cd4732e8784774c159daa322.s3tc.ctex"
+uid="uid://d4f8hpwlk68ex"
+path.s3tc="res://.godot/imported/Wallpaper_03_Green_1.png-0b9635d8dbb849a52db998078c9836db.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/Fabric_Twine_01_Yellow_1.png"
-dest_files=["res://.godot/imported/Fabric_Twine_01_Yellow_1.png-71d596c8cd4732e8784774c159daa322.s3tc.ctex"]
+source_file="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Wallpaper_03_Green_1.png"
+dest_files=["res://.godot/imported/Wallpaper_03_Green_1.png-0b9635d8dbb849a52db998078c9836db.s3tc.ctex"]
 
 [params]
 

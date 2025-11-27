@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqmd0mpe2gf0a"
-path="res://.godot/imported/Pattern_02_Green_1.png-89b4dd1e903e53a3167b92cd07f5de80.ctex"
+uid="uid://dn8hnl0myxl68"
+path="res://.godot/imported/wardrobeAO.png-24dd78b3f6671abbf5c7c6c34c304c8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/Pattern_02_Green_1.png"
-dest_files=["res://.godot/imported/Pattern_02_Green_1.png-89b4dd1e903e53a3167b92cd07f5de80.ctex"]
+source_file="res://assets/materials/textures/ambient_oclusion_maps/wardrobeAO.png"
+dest_files=["res://.godot/imported/wardrobeAO.png-24dd78b3f6671abbf5c7c6c34c304c8d.ctex"]
 
 [params]
 

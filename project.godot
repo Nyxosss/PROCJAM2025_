@@ -29,7 +29,9 @@ folder_colors={
 "res://assets/3D_models/wall_tiles/": "yellow",
 "res://assets/UI/": "red",
 "res://assets/UI/fonts/": "red",
-"res://assets/textures/": "yellow"
+"res://assets/materials/textures/": "orange",
+"res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/": "orange",
+"res://assets/materials/textures/ambient_oclusion_maps/": "orange"
 }
 
 [input]

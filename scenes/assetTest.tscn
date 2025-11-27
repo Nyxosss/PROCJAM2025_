@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cs7f75l4qrodw"]
+[gd_scene load_steps=11 format=3 uid="uid://cs7f75l4qrodw"]
 
 [ext_resource type="PackedScene" uid="uid://q45djqygup02" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_center.glb" id="1_1ogt4"]
 [ext_resource type="PackedScene" uid="uid://bjytepbamb0m" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_bl.glb" id="2_gnj23"]
@@ -9,31 +9,37 @@
 [ext_resource type="PackedScene" uid="uid://dfsg21nf46bbq" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_f.glb" id="7_jkgx3"]
 [ext_resource type="PackedScene" uid="uid://8rg6qpl4hsn4" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_l.glb" id="8_5w0da"]
 [ext_resource type="PackedScene" uid="uid://vrj2u50mlbjy" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_r.glb" id="9_d6qyx"]
+[ext_resource type="PackedScene" uid="uid://cp025smy8b2rn" path="res://assets/3D_models/wall_tiles/STFwall.glb" id="10_mqtf0"]
 
 [node name="AssetTest" type="Node3D"]
 
-[node name="STFcarpet_center2" parent="." instance=ExtResource("1_1ogt4")]
+[node name="carpet" type="Node3D" parent="."]
+visible = false
 
-[node name="STFcarpet_corner_bl2" parent="." instance=ExtResource("2_gnj23")]
+[node name="STFcarpet_center2" parent="carpet" instance=ExtResource("1_1ogt4")]
+
+[node name="STFcarpet_corner_bl2" parent="carpet" instance=ExtResource("2_gnj23")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
 
-[node name="STFcarpet_corner_br2" parent="." instance=ExtResource("3_gnj23")]
+[node name="STFcarpet_corner_br2" parent="carpet" instance=ExtResource("3_gnj23")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
-[node name="STFcarpet_corner_fl2" parent="." instance=ExtResource("4_ot2jr")]
+[node name="STFcarpet_corner_fl2" parent="carpet" instance=ExtResource("4_ot2jr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
 
-[node name="STFcarpet_corner_fr2" parent="." instance=ExtResource("5_nyrfw")]
+[node name="STFcarpet_corner_fr2" parent="carpet" instance=ExtResource("5_nyrfw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 
-[node name="STFcarpet_side_b2" parent="." instance=ExtResource("6_mqtf0")]
+[node name="STFcarpet_side_b2" parent="carpet" instance=ExtResource("6_mqtf0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
-[node name="STFcarpet_side_f2" parent="." instance=ExtResource("7_jkgx3")]
+[node name="STFcarpet_side_f2" parent="carpet" instance=ExtResource("7_jkgx3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
-[node name="STFcarpet_side_l2" parent="." instance=ExtResource("8_5w0da")]
+[node name="STFcarpet_side_l2" parent="carpet" instance=ExtResource("8_5w0da")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
-[node name="STFcarpet_side_r2" parent="." instance=ExtResource("9_d6qyx")]
+[node name="STFcarpet_side_r2" parent="carpet" instance=ExtResource("9_d6qyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="STFwall2" parent="." instance=ExtResource("10_mqtf0")]
