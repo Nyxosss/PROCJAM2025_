@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cs7f75l4qrodw"]
+[gd_scene load_steps=15 format=3 uid="uid://cs7f75l4qrodw"]
 
 [ext_resource type="PackedScene" uid="uid://q45djqygup02" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_center.glb" id="1_1ogt4"]
 [ext_resource type="PackedScene" uid="uid://bjytepbamb0m" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_bl.glb" id="2_gnj23"]
@@ -10,10 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://8rg6qpl4hsn4" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_l.glb" id="8_5w0da"]
 [ext_resource type="PackedScene" uid="uid://vrj2u50mlbjy" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_r.glb" id="9_d6qyx"]
 [ext_resource type="PackedScene" uid="uid://cp025smy8b2rn" path="res://assets/3D_models/wall_tiles/STFwall.glb" id="10_mqtf0"]
+[ext_resource type="PackedScene" uid="uid://da5wi5fwlvab4" path="res://assets/3D_models/wall_tiles/STFdoor_frame.glb" id="11_d6qyx"]
+[ext_resource type="PackedScene" uid="uid://dsimjfre5e0yw" path="res://assets/3D_models/wall_tiles/STFfloor_tile.glb" id="12_1sbf2"]
+[ext_resource type="PackedScene" uid="uid://rqfufeqf4wg6" path="res://assets/3D_models/wall_tiles/STFdoor.glb" id="13_1sbf2"]
+[ext_resource type="PackedScene" uid="uid://dq5r1856ajmv4" path="res://assets/3D_models/wall_tiles/STFwindow.glb" id="13_ar3pi"]
 
 [node name="AssetTest" type="Node3D"]
 
 [node name="carpet" type="Node3D" parent="."]
+visible = false
 
 [node name="STFcarpet_center2" parent="carpet" instance=ExtResource("1_1ogt4")]
 
@@ -42,3 +47,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="STFwall2" parent="." instance=ExtResource("10_mqtf0")]
+
+[node name="STFdoor_frame2" parent="." instance=ExtResource("11_d6qyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="STFfloor_tile2" parent="." instance=ExtResource("12_1sbf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="door" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="STFdoor2" parent="door" instance=ExtResource("13_1sbf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.5)
+
+[node name="STFwindow2" parent="." instance=ExtResource("13_ar3pi")]

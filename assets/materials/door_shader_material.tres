@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://yuomyq2pe23w"]
+
+[ext_resource type="Shader" uid="uid://begup8qvbte8o" path="res://assets/materials/shaders/door_shader.tres" id="1_n1hy0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_n1hy0")
+shader_parameter/ColorParameter = Color(0.84343857, 0.73285115, 0.45550394, 1)

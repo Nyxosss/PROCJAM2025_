@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://8rg6qpl4hsn4"
-path="res://.godot/imported/STFcarpet_side_l.glb-072b4d0d1b11c10d31964223622771f4.scn"
+uid="uid://rqfufeqf4wg6"
+path="res://.godot/imported/STFdoor.glb-48a3da2ad0541888b840259d49f5fc37.scn"
 
 [deps]
 
-source_file="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_l.glb"
-dest_files=["res://.godot/imported/STFcarpet_side_l.glb-072b4d0d1b11c10d31964223622771f4.scn"]
+source_file="res://assets/3D_models/wall_tiles/STFdoor.glb"
+dest_files=["res://.godot/imported/STFdoor.glb-48a3da2ad0541888b840259d49f5fc37.scn"]
 
 [params]
 
@@ -39,10 +39,10 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "materials": {
-"Carpet": {
+"door": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://assets/materials/carpet_material.tres",
-"use_external/path": "uid://0xyt0gimcnru"
+"use_external/fallback_path": "res://assets/materials/door_shader_material.tres",
+"use_external/path": "uid://yuomyq2pe23w"
 }
 }
 }
