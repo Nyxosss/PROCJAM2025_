@@ -14,7 +14,6 @@
 [node name="AssetTest" type="Node3D"]
 
 [node name="carpet" type="Node3D" parent="."]
-visible = false
 
 [node name="STFcarpet_center2" parent="carpet" instance=ExtResource("1_1ogt4")]
 
