@@ -1,11 +1,17 @@
 class_name Npc
 extends RigidBody3D
 
-enum Behavior {CALM = 0, SCAREDY = 1, BRAVE = 2}
-var behavior: Behavior
-var movement_amount: int
-#DIE, ATTACK/RUN
-var behavior_weights: Array[float] = [0.0, 0.0]
+#PERSONALITY
+enum Personality {CALM = 0, SCAREDY = 1, BRAVE = 2}
+var personality: Personality = Personality.CALM
+#BEHAVIOR
+enum Behavior {DIE = 0, ATK_RUN_AWAY = 1}
+var behavior_weights: Dictionary = {
+	Behavior.DIE : 1.0, Behavior.ATK_RUN_AWAY : 0.0
+}
+var behavior_choice_array: Array[Behavior]
+
+#PROP LOGIC
 var current_prop: Prop
 var destination_prop: Prop
 #FLAGS
@@ -21,7 +27,7 @@ var my_turn: bool = false
 
 func _ready() -> void:
 	obtain_prop_list()
-	assign_random_behavior()
+	assign_random_personality()
 
 func _process(delta: float) -> void:
 	pass
@@ -49,20 +55,23 @@ func obtain_prop_list() -> void:
 		if child is Player:
 			player = child
 
-func assign_random_behavior() -> void:
-	var rand_behavior: int = randi_range(0, Behavior.size() - 1)
-	self.behavior = rand_behavior
-	print('NPC BEHAVIOR: ', str(self.behavior))
+func assign_random_personality() -> void:
+	var rand_personality: int = randi_range(0, Personality.size() - 1)
+	self.personality = rand_personality
+	print('NPC personality: ', str(self.personality))
 	define_behavior_weights()
 	
 func define_behavior_weights() -> void:
-	match self.behavior:
-		Behavior.CALM:
-			behavior_weights = [0.5, 0.5]
-		Behavior.SCAREDY:
-			behavior_weights = [0.9, 0.1]
-		Behavior.BRAVE:
-			behavior_weights = [0.1, 0.9]
+	match self.personality:
+		Personality.CALM:
+			behavior_weights[Behavior.DIE] = 0.5
+			behavior_weights[Behavior.ATK_RUN_AWAY] = 0.5
+		Personality.SCAREDY:
+			behavior_weights[Behavior.DIE] = 0.9
+			behavior_weights[Behavior.ATK_RUN_AWAY] = 0.1
+		Personality.BRAVE:
+			behavior_weights[Behavior.DIE] = 0.1
+			behavior_weights[Behavior.ATK_RUN_AWAY] = 0.9
 
 # ----------------------- MOVEMENT ------------------------------
 
@@ -85,22 +94,47 @@ func hide_behind_prop(delta: float) -> void:
 	else:
 		global_position = destination_prop.back_area.global_position
 		current_prop = destination_prop
-		is_hiding = true
-		is_moving = false
-		my_turn = false
-		player.my_turn = true
-		
+		if my_turn:
+			is_hiding = true
+			is_moving = false
+			my_turn = false
+			player.my_turn = true
+
 # ------------------------- ACTIONS -------------------------
 
+func trigger_behavior() -> void:
+	var random_number: float = randf()
+	print('DECIDING ', name, ' ACTION')
+	fill_behavior_choice_array()
+	#PICK RANDOM BEHAVIOR BASED ON WEIGHTS
+	var chosen_behavior: Behavior = behavior_choice_array.pick_random()
+	print(name, ' CHOSE BEHAVIOR ', chosen_behavior)
+	match chosen_behavior:
+		Behavior.DIE:
+			die()
+		Behavior.ATK_RUN_AWAY:
+			attack_and_run(get_physics_process_delta_time())
+	
+func fill_behavior_choice_array() -> void:
+	var max_size: int = 20
+	var die_amount: int = max_size * behavior_weights[Behavior.DIE]
+	var atk_run_amount: int = max_size * behavior_weights[Behavior.ATK_RUN_AWAY]
+	for i in randi_range(0, die_amount):
+		behavior_choice_array.append(Behavior.DIE)
+	for i in randi_range(0, atk_run_amount):
+		behavior_choice_array.append(Behavior.ATK_RUN_AWAY)
+	print('BEHAVIOR CHOICE ARRAY: ', behavior_choice_array)
+	
 func die() -> void:
-	pass
+	queue_free()
 
-func attack_and_run() -> void:
+func attack_and_run(delta: float) -> void:
 	attack(player)
-	run()
+	run(delta)
 	
 func attack(player: Player) -> void:
-	pass
+	player.health -= 2
 
-func run() -> void:
-	pass
+func run(delta: float) -> void:
+	select_random_destination_prop()
+	hide_behind_prop(delta)
