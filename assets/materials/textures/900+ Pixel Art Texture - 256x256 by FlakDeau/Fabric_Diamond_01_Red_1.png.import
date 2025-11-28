@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mnix187384pd"
-path.s3tc="res://.godot/imported/smallSofaAO.png-472210500fb0d13ae9ca0db81f951218.s3tc.ctex"
+uid="uid://biq2hlsttmxn3"
+path.s3tc="res://.godot/imported/Fabric_Diamond_01_Red_1.png-578d6e9f14835fedc39b5c7a9e3232b6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/materials/textures/ambient_oclusion_maps/smallSofaAO.png"
-dest_files=["res://.godot/imported/smallSofaAO.png-472210500fb0d13ae9ca0db81f951218.s3tc.ctex"]
+source_file="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Fabric_Diamond_01_Red_1.png"
+dest_files=["res://.godot/imported/Fabric_Diamond_01_Red_1.png-578d6e9f14835fedc39b5c7a9e3232b6.s3tc.ctex"]
 
 [params]
 

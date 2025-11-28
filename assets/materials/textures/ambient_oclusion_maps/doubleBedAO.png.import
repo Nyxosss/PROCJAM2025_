@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mnix187384pd"
-path.s3tc="res://.godot/imported/smallSofaAO.png-472210500fb0d13ae9ca0db81f951218.s3tc.ctex"
+uid="uid://b21qj6ehylbsu"
+path.s3tc="res://.godot/imported/doubleBedAO.png-dfc81cc394a20e133dcf37ea58cbca46.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/materials/textures/ambient_oclusion_maps/smallSofaAO.png"
-dest_files=["res://.godot/imported/smallSofaAO.png-472210500fb0d13ae9ca0db81f951218.s3tc.ctex"]
+source_file="res://assets/materials/textures/ambient_oclusion_maps/doubleBedAO.png"
+dest_files=["res://.godot/imported/doubleBedAO.png-dfc81cc394a20e133dcf37ea58cbca46.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dun78l2k35cu4"]
+
+[ext_resource type="Shader" uid="uid://c1wjijqq42sw1" path="res://assets/materials/shaders/big_sofa_shader.tres" id="1_x6ebr"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_x6ebr")

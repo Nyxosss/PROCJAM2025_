@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mnix187384pd"
-path.s3tc="res://.godot/imported/smallSofaAO.png-472210500fb0d13ae9ca0db81f951218.s3tc.ctex"
+uid="uid://dv4rum1fui4iq"
+path.s3tc="res://.godot/imported/Fabric_Trellis_01_Red_1.png-769afa7d7990e156361432c5c2cfab51.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/materials/textures/ambient_oclusion_maps/smallSofaAO.png"
-dest_files=["res://.godot/imported/smallSofaAO.png-472210500fb0d13ae9ca0db81f951218.s3tc.ctex"]
+source_file="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Fabric_Trellis_01_Red_1.png"
+dest_files=["res://.godot/imported/Fabric_Trellis_01_Red_1.png-769afa7d7990e156361432c5c2cfab51.s3tc.ctex"]
 
 [params]
 

@@ -6,6 +6,7 @@
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_vv2js"]
 texture = ExtResource("1_5jesw")
+texture_type = 1
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_jfoy3"]
 default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
@@ -30,7 +31,7 @@ constant = 2.5
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
-uniform sampler2D tex_frg_2;
+uniform sampler2D tex_frg_2 : source_color;
 uniform sampler2D tex_frg_7;
 uniform sampler2D tex_frg_6;
 
