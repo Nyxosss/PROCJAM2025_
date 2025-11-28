@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cjpf68172m1rk"]
+
+[ext_resource type="Shader" uid="uid://b4db5bwyg3ynx" path="res://assets/materials/shaders/wardrobe_shader.tres" id="1_vkdbd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_vkdbd")

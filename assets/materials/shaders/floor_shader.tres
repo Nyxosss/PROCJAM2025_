@@ -1,0 +1,62 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://d3a1383vxr8l0"]
+
+[ext_resource type="Texture2D" uid="uid://jmdd6576a0cn" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Wood_Planks_01_Brown_3.png" id="1_yy5an"]
+[ext_resource type="Texture2D" uid="uid://ccyyawhmcq0gi" path="res://assets/materials/textures/ambient_oclusion_maps/floorAOdetailed.png" id="2_rav05"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_vv2js"]
+texture = ExtResource("1_yy5an")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_jfoy3"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_klydr"]
+texture = ExtResource("2_rav05")
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_sqryi"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_2 : source_color;
+uniform sampler2D tex_frg_8;
+
+
+
+void fragment() {
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// Texture2D:8
+	vec4 n_out8p0 = texture(tex_frg_8, UV);
+
+
+// VectorOp:3
+	vec4 n_out3p0 = n_out2p0 * n_out8p0;
+
+
+// FloatConstant:9
+	float n_out9p0 = 0.000000;
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	AO = n_out8p0.x;
+	AO_LIGHT_AFFECT = n_out9p0;
+
+
+}
+"
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_vv2js")
+nodes/fragment/2/position = Vector2(-460, 40)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorOp_jfoy3")
+nodes/fragment/3/position = Vector2(-20, 200)
+nodes/fragment/8/node = SubResource("VisualShaderNodeTexture_klydr")
+nodes/fragment/8/position = Vector2(-460, 360)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatConstant_sqryi")
+nodes/fragment/9/position = Vector2(160, 500)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0, 3, 0, 0, 0, 8, 0, 0, 6, 8, 0, 3, 1, 9, 0, 0, 7)

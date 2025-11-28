@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://di7prc1kvwwth"]
+
+[ext_resource type="Texture2D" uid="uid://bimf0bubtqude" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Wood_Pattern_02_Brown_1.png" id="1_7x6pw"]
+
+[resource]
+resource_name = "wood"
+cull_mode = 2
+albedo_texture = ExtResource("1_7x6pw")
+roughness = 0.5

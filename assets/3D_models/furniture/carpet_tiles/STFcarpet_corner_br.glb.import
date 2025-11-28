@@ -1,0 +1,55 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://qixw443846n1"
+path="res://.godot/imported/STFcarpet_corner_br.glb-5502ba1cf3c2e97d1dc246fc9a34de69.scn"
+
+[deps]
+
+source_file="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_br.glb"
+dest_files=["res://.godot/imported/STFcarpet_corner_br.glb-5502ba1cf3c2e97d1dc246fc9a34de69.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={
+"materials": {
+"Carpet": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/materials/carpet_material.tres",
+"use_external/path": "uid://0xyt0gimcnru"
+},
+"CarpetThreads": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/materials/carpet_fringe_material.tres",
+"use_external/path": "uid://ccd2no326xadt"
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=1

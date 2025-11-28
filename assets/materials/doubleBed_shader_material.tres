@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cn8cfgkujfy8t"]
+
+[ext_resource type="Shader" uid="uid://ci6npusy5wg2q" path="res://assets/materials/shaders/doubleBed_shader.tres" id="1_y3rf5"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_y3rf5")
