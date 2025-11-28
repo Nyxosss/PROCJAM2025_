@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://biq2hlsttmxn3" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Fabric_Diamond_01_Red_1.png" id="1_vvr51"]
 [ext_resource type="Texture2D" uid="uid://b21qj6ehylbsu" path="res://assets/materials/textures/ambient_oclusion_maps/doubleBedAO.png" id="2_jp62k"]
-[ext_resource type="Texture2D" uid="uid://dun3lir6blkws" path="res://assets/materials/textures/ambient_oclusion_maps/doubleBedAlbedo.png" id="3_mdbq8"]
+[ext_resource type="Texture2D" uid="uid://dun3lir6blkws" path="res://assets/materials/textures/ID maps/doubleBedAlbedo.png" id="2_vvr51"]
 [ext_resource type="Texture2D" uid="uid://bimf0bubtqude" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Wood_Pattern_02_Brown_1.png" id="4_0tfml"]
 [ext_resource type="Texture2D" uid="uid://blvgbc1q4n3hx" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Fabric_Plain_01_Grey_1.png" id="5_11iyr"]
 
@@ -12,7 +12,7 @@ texture_type = 1
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_pgnir"]
 expanded_output_ports = [0]
-texture = ExtResource("3_mdbq8")
+texture = ExtResource("2_vvr51")
 
 [sub_resource type="VisualShaderNodeRemap" id="VisualShaderNodeRemap_p2gil"]
 output_port_for_preview = 0

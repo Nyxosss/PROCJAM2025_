@@ -2,23 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cymjd84n1lwr4"
-path="res://.godot/imported/STFbig_sofa_Fabric_Trellis_01_Red_1.png-7cacd6a2e6337a6a2b2a1d1e45cdefb5.ctex"
+uid="uid://dj70l3wa57pbg"
+path.s3tc="res://.godot/imported/cokingcloset_ID.png-998352a5fba54cae8a8897750d5c391b.s3tc.ctex"
 metadata={
-"vram_texture": false
-}
-generator_parameters={
-"md5": "708b508f73e109bd3e09e398494570e9"
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://assets/3D_models/furniture/STFbig_sofa_Fabric_Trellis_01_Red_1.png"
-dest_files=["res://.godot/imported/STFbig_sofa_Fabric_Trellis_01_Red_1.png-7cacd6a2e6337a6a2b2a1d1e45cdefb5.ctex"]
+source_file="res://assets/materials/textures/ID maps/cokingcloset_ID.png"
+dest_files=["res://.godot/imported/cokingcloset_ID.png-998352a5fba54cae8a8897750d5c391b.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +38,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
