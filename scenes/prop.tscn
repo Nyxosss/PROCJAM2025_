@@ -25,7 +25,6 @@ shape = SubResource("BoxShape3D_n1e5n")
 mesh = SubResource("BoxMesh_n1e5n")
 
 [node name="BackArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.07913)
 
 [node name="Collision" type="CollisionShape3D" parent="BackArea"]
 shape = SubResource("BoxShape3D_m6nas")

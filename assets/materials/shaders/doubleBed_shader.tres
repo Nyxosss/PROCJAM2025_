@@ -1,8 +1,8 @@
-[gd_resource type="VisualShader" load_steps=25 format=3 uid="uid://ci6npusy5wg2q"]
+[gd_resource type="VisualShader" load_steps=27 format=3 uid="uid://ci6npusy5wg2q"]
 
 [ext_resource type="Texture2D" uid="uid://biq2hlsttmxn3" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Fabric_Diamond_01_Red_1.png" id="1_vvr51"]
 [ext_resource type="Texture2D" uid="uid://b21qj6ehylbsu" path="res://assets/materials/textures/ambient_oclusion_maps/doubleBedAO.png" id="2_jp62k"]
-[ext_resource type="Texture2D" uid="uid://dun3lir6blkws" path="res://assets/materials/textures/ambient_oclusion_maps/doubleBedAlbedo.png" id="3_mdbq8"]
+[ext_resource type="Texture2D" uid="uid://dun3lir6blkws" path="res://assets/materials/textures/ID maps/doubleBedAlbedo.png" id="2_vvr51"]
 [ext_resource type="Texture2D" uid="uid://bimf0bubtqude" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Wood_Pattern_02_Brown_1.png" id="4_0tfml"]
 [ext_resource type="Texture2D" uid="uid://blvgbc1q4n3hx" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Fabric_Plain_01_Grey_1.png" id="5_11iyr"]
 
@@ -12,7 +12,7 @@ texture_type = 1
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_pgnir"]
 expanded_output_ports = [0]
-texture = ExtResource("3_mdbq8")
+texture = ExtResource("2_vvr51")
 
 [sub_resource type="VisualShaderNodeRemap" id="VisualShaderNodeRemap_p2gil"]
 output_port_for_preview = 0
@@ -73,6 +73,13 @@ function = 15
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_vvr51"]
 texture = ExtResource("2_jp62k")
 
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_vvr51"]
+default_input_values = [1, Vector2(4, 4), 2, Vector2(0, 0)]
+function = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_jp62k"]
+input_name = "uv"
+
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_5jesw"]
 constant = 2.5
 
@@ -97,8 +104,18 @@ void fragment() {
 	vec4 n_out9p0 = texture(tex_frg_9, UV);
 
 
+// Input:40
+	vec2 n_out40p0 = UV;
+
+
+// UVFunc:39
+	vec2 n_in39p1 = vec2(4.00000, 4.00000);
+	vec2 n_in39p2 = vec2(0.00000, 0.00000);
+	vec2 n_out39p0 = (n_out40p0 - n_in39p2) * n_in39p1 + n_in39p2;
+
+
 // Texture2D:10
-	vec4 n_out10p0 = texture(tex_frg_10, UV);
+	vec4 n_out10p0 = texture(tex_frg_10, n_out39p0);
 
 
 // Texture2D:12
@@ -244,4 +261,8 @@ nodes/fragment/37/node = SubResource("VisualShaderNodeFloatFunc_730cm")
 nodes/fragment/37/position = Vector2(-1360, 1720)
 nodes/fragment/38/node = SubResource("VisualShaderNodeTexture_vvr51")
 nodes/fragment/38/position = Vector2(900, 180)
-nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0, 8, 0, 0, 7, 12, 1, 13, 0, 12, 3, 15, 0, 13, 0, 17, 0, 20, 0, 21, 1, 10, 0, 23, 1, 15, 0, 26, 0, 9, 0, 22, 0, 22, 0, 32, 0, 23, 0, 22, 1, 23, 4, 22, 2, 26, 0, 34, 0, 34, 0, 35, 0, 35, 0, 23, 2, 21, 4, 32, 2, 21, 0, 32, 1, 36, 0, 21, 2, 32, 0, 3, 0, 17, 0, 37, 0, 37, 0, 36, 0, 38, 0, 0, 6, 38, 0, 3, 1)
+nodes/fragment/39/node = SubResource("VisualShaderNodeUVFunc_vvr51")
+nodes/fragment/39/position = Vector2(-1238.7251, 1047.0759)
+nodes/fragment/40/node = SubResource("VisualShaderNodeInput_jp62k")
+nodes/fragment/40/position = Vector2(-1700, 1020)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0, 8, 0, 0, 7, 12, 1, 13, 0, 12, 3, 15, 0, 13, 0, 17, 0, 20, 0, 21, 1, 10, 0, 23, 1, 15, 0, 26, 0, 9, 0, 22, 0, 22, 0, 32, 0, 23, 0, 22, 1, 23, 4, 22, 2, 26, 0, 34, 0, 34, 0, 35, 0, 35, 0, 23, 2, 21, 4, 32, 2, 21, 0, 32, 1, 36, 0, 21, 2, 32, 0, 3, 0, 17, 0, 37, 0, 37, 0, 36, 0, 38, 0, 0, 6, 38, 0, 3, 1, 39, 0, 10, 0, 40, 0, 39, 0)

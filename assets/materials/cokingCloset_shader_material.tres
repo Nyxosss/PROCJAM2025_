@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bqq5ec7p5q1l7"]
+
+[ext_resource type="Shader" uid="uid://c4jmcev2t1k6i" path="res://assets/materials/shaders/cokingCloset_shader.tres" id="1_o681r"]
+[ext_resource type="Texture2D" uid="uid://dnyqlml73wvbd" path="res://assets/materials/textures/ambient_oclusion_maps/cokingCloset_AO.png" id="2_5swrp"]
+[ext_resource type="Texture2D" uid="uid://dj70l3wa57pbg" path="res://assets/materials/textures/ID maps/cokingcloset_ID.png" id="3_nljb1"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_o681r")
+shader_parameter/AO_Texture = ExtResource("2_5swrp")
+shader_parameter/ID_Texture = ExtResource("3_nljb1")

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dun3lir6blkws"
-path.s3tc="res://.godot/imported/doubleBedAlbedo.png-42f68f29315d7525f98a13d5945cf863.s3tc.ctex"
+uid="uid://b2kior7rm1tgt"
+path.s3tc="res://.godot/imported/dishWash_ID.png-1a6e4d5a8bbbb1bbd5014858f531d1a9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/materials/textures/ambient_oclusion_maps/doubleBedAlbedo.png"
-dest_files=["res://.godot/imported/doubleBedAlbedo.png-42f68f29315d7525f98a13d5945cf863.s3tc.ctex"]
+source_file="res://assets/materials/textures/ID maps/dishWash_ID.png"
+dest_files=["res://.godot/imported/dishWash_ID.png-1a6e4d5a8bbbb1bbd5014858f531d1a9.s3tc.ctex"]
 
 [params]
 
