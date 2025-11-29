@@ -1,0 +1,35 @@
+[gd_resource type="ArrayMesh" load_steps=3 format=3 uid="uid://cal0pfwhnetou"]
+
+[ext_resource type="Material" uid="uid://cf031f3wq2gok" path="res://assets/materials/wall_shader_material.tres" id="1_wy0ak"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cefwf"]
+_surfaces = [{
+"aabb": AABB(-0.49999994, 0, -0.5, 0.9999999, 3, 1e-05),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
+"name": "walls",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0)
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "STFwall_Plane_026"
+_surfaces = [{
+"aabb": AABB(-0.49999994, 0, -0.5, 0.9999999, 3, 1e-05),
+"attribute_data": PackedByteArray(169, 170, 0, 0, 169, 170, 255, 255, 84, 85, 255, 255, 84, 85, 0, 0),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0),
+"material": ExtResource("1_wy0ak"),
+"name": "walls",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(255, 255, 255, 255, 0, 0, 0, 128, 255, 255, 0, 0, 0, 0, 0, 128, 0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 255, 255, 0, 0, 0, 128, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_cefwf")

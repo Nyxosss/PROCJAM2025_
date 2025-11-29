@@ -2,6 +2,9 @@
 extends Node3D
 
 var grid_map: GridMap = null
+@export var dun_mesh_path : NodePath
+@onready var dun_mesh : Node3D = get_node(dun_mesh_path)
+@export var player_path: NodePath
 
 func get_grid_map() -> GridMap:
 	if grid_map == null:
@@ -11,6 +14,10 @@ func get_grid_map() -> GridMap:
 
 @export var start : bool = false : set = set_start
 
+func _ready():
+	if not Engine.is_editor_hint():
+		generate()
+
 func set_start(val: bool) -> void:
 	generate()
 
@@ -18,10 +25,13 @@ func set_start(val: bool) -> void:
 @export var room_size : int = 7
 @export var room_amount: int = 5
 @export var room_margin: int = 0
+var tile_to_room_id := {}
 
 var room_tiles: Array[PackedVector3Array] = []
 var room_pos: PackedVector3Array = []
 
+var first_room_reserved_dir: Vector3i = Vector3i.ZERO
+var reserved_side_chosen: bool = false
 
 func set_border_size(val: int) -> void:
 	border_size = val
@@ -40,15 +50,39 @@ func visualize_border():
 		grid_map.set_cell_item(Vector3i(border_size,0,i),0)
 		grid_map.set_cell_item(Vector3i(-1,0,i),0)
 
+
+var current_room_id = 0
+
 func generate():
 	room_tiles.clear()
 	room_pos.clear()
 	visualize_border()
+	var current_room_id = 1
 	for i in range(room_amount):
 		print(i)
-		make_room()
+		make_room(current_room_id)
+		current_room_id += 1
+	
+	var half_size = int(room_size / 2)  # 3
+	var center = room_pos[0]
+	var door_tile = Vector3i(
+		int(center.x) + first_room_reserved_dir.x * half_size,
+		0,
+		int(center.z) + first_room_reserved_dir.z * half_size
+	)
+	grid_map.set_cell_item(door_tile, 2)  # 2 = door
 
-func make_room() -> bool:
+	#var first_room_center = room_pos[0]
+	#var door_pos = Vector3i(first_room_center) + first_room_reserved_dir * -3
+	#grid_map.set_cell_item(door_pos, 3)  # 2 = door
+	
+	dun_mesh.tile_to_room_id = tile_to_room_id
+	await get_tree().process_frame
+	dun_mesh.create_dungeon()
+	grid_map.hide()
+	spawn_player_in_first_room()
+
+func make_room(current_room_id:int) -> bool:
 	var height := room_size
 	var width := room_size
 
@@ -61,6 +95,11 @@ func make_room() -> bool:
 
 	# Build border list
 	var borders := get_all_room_borders()
+	# Filter out borders that are “reserved” (-999)
+	borders = borders.filter(func(b):
+		return tile_to_room_id.get(b, 0) != -999
+	)
+	
 	if borders.size() == 0:
 		return false
 
@@ -93,7 +132,7 @@ func make_room() -> bool:
 			continue
 
 		# Place room
-		place_room(start_pos, width, height)
+		place_room(start_pos, width, height, current_room_id)
 		
 		#doors
 		grid_map.set_cell_item(base,2)
@@ -113,7 +152,34 @@ func place_first_room() -> bool:
 		randi() % (border_size - height + 1)
 	)
 
-	place_room(start_pos, width, height)
+	# Pick a random side to reserve (up/right/down/left)
+	var sides = [
+		Vector3i(1,0,0),
+		Vector3i(-1,0,0),
+		Vector3i(0,0,1),
+		Vector3i(0,0,-1)
+	]
+	first_room_reserved_dir = sides[randi() % sides.size()]
+	reserved_side_chosen = true
+#
+	## Store the reserved tiles so no other rooms can attach there
+	#var reserved_tile := Vector3i(start_pos) + first_room_reserved_dir
+	#tile_to_room_id[reserved_tile] = -999  # special value for “do not attach”
+	#
+	####2 try
+	# Reserve all tiles along the chosen edge so no other room attaches there
+	place_room(start_pos, width, height, 1)
+	var first_room := room_tiles[0]
+	for tile in first_room:
+		if first_room_reserved_dir.x > 0 and tile.x == start_pos.x + width - 1:
+			tile_to_room_id[tile] = -999
+		elif first_room_reserved_dir.x < 0 and tile.x == start_pos.x:
+			tile_to_room_id[tile] = -999
+		elif first_room_reserved_dir.z > 0 and tile.z == start_pos.z + height - 1:
+			tile_to_room_id[tile] = -999
+		elif first_room_reserved_dir.z < 0 and tile.z == start_pos.z:
+			tile_to_room_id[tile] = -999
+	
 	return true
 
 
@@ -153,14 +219,16 @@ func get_all_room_borders() -> Array:
 
 	return borders
 
-func place_room(start_pos: Vector3, width: int, height: int):
+func place_room(start_pos: Vector3, width: int, height: int, room_id:int):
 	var room := PackedVector3Array()
 	
 	for r in range(height):
 		for c in range(width):
-			var pos := start_pos + Vector3(c, 0, r)
+			#var pos := start_pos + Vector3(c, 0, r)
+			var pos := Vector3i(start_pos.x + c, 0, start_pos.z + r)
 			grid_map.set_cell_item(pos, 1)
 			room.append(pos)
+			tile_to_room_id[pos] = room_id
 
 	room_tiles.append(room)
 
@@ -171,26 +239,21 @@ func place_room(start_pos: Vector3, width: int, height: int):
 	)
 	room_pos.append(center)
 
-
-
 func isDiagonal(w: int,h: int) -> bool:
 	if (w == -1 || w == room_size):
 		return (h == -1 or h == room_size)
 	return false
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+func spawn_player_in_first_room():
+	if room_pos.size() == 0:
+		print("No rooms generated")
+		return
+
+	var player = get_node(player_path)
+	if player == null:
+		print("Player error!")
+		return
+
+	var center = room_pos[0]
+
+	player.global_position = Vector3(center.x, 1.5, center.z)
