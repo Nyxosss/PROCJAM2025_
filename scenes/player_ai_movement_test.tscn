@@ -1,22 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://2gt27s1w1x17"]
+[gd_scene load_steps=7 format=3 uid="uid://bgrrave63joy2"]
 
-[ext_resource type="Script" uid="uid://draefwoe08fe3" path="res://scenes/room_generation_script.gd" id="1_32rso"]
-[ext_resource type="MeshLibrary" uid="uid://baficpor5545n" path="res://room_mesh.tres" id="2_32rso"]
-[ext_resource type="Script" path="res://scenes/dun_mesh.gd" id="3_dye4h"]
-[ext_resource type="Script" path="res://scenes/player_test.gd" id="4_j1a1d"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dye4h"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_j1a1d"]
+[ext_resource type="Script" uid="uid://draefwoe08fe3" path="res://scenes/room_generation_script.gd" id="1_uxo3d"]
+[ext_resource type="MeshLibrary" uid="uid://baficpor5545n" path="res://room_mesh.tres" id="2_qknhu"]
+[ext_resource type="Script" path="res://scenes/dun_mesh.gd" id="3_fcrvd"]
+[ext_resource type="PackedScene" uid="uid://b14hr86quckjd" path="res://scenes/player.tscn" id="4_qknhu"]
+[ext_resource type="Script" uid="uid://bs3vtubjkb06l" path="res://scripts/camera.gd" id="5_fcrvd"]
+[ext_resource type="Script" uid="uid://cw32bmtbk6m3d" path="res://scripts/turn_manager.gd" id="6_fcrvd"]
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_32rso")
+script = ExtResource("1_uxo3d")
 dun_mesh_path = NodePath("DunMesh")
-player_path = NodePath("CharacterBody3D")
+player_path = NodePath("Player")
 border_size = 30
 
 [node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource("2_32rso")
+mesh_library = ExtResource("2_qknhu")
 cell_size = Vector3(1, 1, 1)
 data = {
 "cells": PackedInt32Array(65535, 65535, 0, 65535, 30, 0, 30, 65535, 0, 0, 65535, 0, 0, 30, 0, 30, 0, 0, 65535, 0, 0, 1, 65535, 0, 1, 30, 0, 30, 1, 0, 65535, 1, 0, 2, 65535, 0, 2, 30, 0, 30, 2, 0, 65535, 2, 0, 3, 65535, 0, 3, 30, 0, 30, 3, 0, 65535, 3, 0, 4, 65535, 0, 4, 30, 0, 30, 4, 0, 65535, 4, 0, 5, 65535, 0, 5, 30, 0, 30, 5, 0, 65535, 5, 0, 6, 65535, 0, 6, 30, 0, 30, 6, 0, 65535, 6, 0, 7, 65535, 0, 7, 30, 0, 30, 7, 0, 65535, 7, 0, 8, 65535, 0, 8, 30, 0, 30, 8, 0, 65535, 8, 0, 9, 65535, 0, 9, 30, 0, 30, 9, 0, 65535, 9, 0, 10, 65535, 0, 10, 30, 0, 30, 10, 0, 65535, 10, 0, 11, 65535, 0, 11, 30, 0, 30, 11, 0, 65535, 11, 0, 12, 65535, 0, 12, 30, 0, 30, 12, 0, 65535, 12, 0, 13, 65535, 0, 13, 30, 0, 30, 13, 0, 65535, 13, 0, 14, 65535, 0, 14, 30, 0, 30, 14, 0, 65535, 14, 0, 15, 65535, 0, 15, 30, 0, 30, 15, 0, 65535, 15, 0, 16, 65535, 0, 16, 30, 0, 30, 16, 0, 65535, 16, 0, 17, 65535, 0, 17, 30, 0, 30, 17, 0, 65535, 17, 0, 18, 65535, 0, 18, 30, 0, 30, 18, 0, 65535, 18, 0, 19, 65535, 0, 19, 30, 0, 30, 19, 0, 65535, 19, 0, 20, 65535, 0, 20, 30, 0, 30, 20, 0, 65535, 20, 0, 21, 65535, 0, 21, 30, 0, 30, 21, 0, 65535, 21, 0, 22, 65535, 0, 22, 30, 0, 30, 22, 0, 65535, 22, 0, 23, 65535, 0, 23, 30, 0, 30, 23, 0, 65535, 23, 0, 24, 65535, 0, 24, 30, 0, 30, 24, 0, 65535, 24, 0, 25, 65535, 0, 25, 30, 0, 30, 25, 0, 65535, 25, 0, 26, 65535, 0, 26, 30, 0, 30, 26, 0, 65535, 26, 0, 27, 65535, 0, 27, 30, 0, 30, 27, 0, 65535, 27, 0, 28, 65535, 0, 28, 30, 0, 30, 28, 0, 65535, 28, 0, 29, 65535, 0, 29, 30, 0, 30, 29, 0, 65535, 29, 0, 30, 30, 0, 5, 12, 1, 6, 12, 1, 7, 12, 1, 8, 12, 2, 9, 12, 1, 10, 12, 1, 11, 12, 1, 5, 13, 1, 6, 13, 1, 7, 13, 1, 8, 13, 1, 9, 13, 1, 10, 13, 1, 11, 13, 1, 5, 14, 1, 6, 14, 1, 7, 14, 1, 8, 14, 1, 9, 14, 1, 10, 14, 1, 11, 14, 1, 5, 15, 1, 6, 15, 1, 7, 15, 1, 8, 15, 1, 9, 15, 1, 10, 15, 1, 11, 15, 1, 5, 16, 1, 6, 16, 1, 7, 16, 1, 8, 16, 1, 9, 16, 1, 10, 16, 1, 11, 16, 1, 5, 17, 1, 6, 17, 1, 7, 17, 1, 8, 17, 1, 9, 17, 1, 10, 17, 1, 11, 17, 1, 5, 18, 1, 6, 18, 1, 7, 18, 2, 8, 18, 1, 9, 18, 1, 10, 18, 1, 11, 18, 1, 7, 19, 2, 8, 19, 1, 9, 19, 1, 10, 19, 1, 11, 19, 1, 12, 19, 1, 13, 19, 1, 7, 20, 2, 8, 20, 1, 9, 20, 1, 10, 20, 1, 11, 20, 1, 12, 20, 1, 13, 20, 1, 7, 21, 1, 8, 21, 1, 9, 21, 1, 10, 21, 1, 11, 21, 1, 12, 21, 1, 13, 21, 2, 7, 22, 1, 8, 22, 1, 9, 22, 1, 10, 22, 1, 11, 22, 1, 12, 22, 1, 13, 22, 1, 7, 23, 1, 8, 23, 1, 9, 23, 1, 10, 23, 1, 11, 23, 1, 12, 23, 1, 13, 23, 1, 7, 24, 1, 8, 24, 1, 9, 24, 1, 10, 24, 1, 11, 24, 1, 12, 24, 1, 13, 24, 1, 7, 25, 1, 8, 25, 1, 9, 25, 1, 10, 25, 1, 11, 25, 1, 12, 25, 1, 13, 25, 1, 0, 20, 1, 1, 20, 1, 2, 20, 1, 3, 20, 1, 4, 20, 1, 5, 20, 1, 6, 20, 2, 0, 21, 1, 1, 21, 1, 2, 21, 1, 3, 21, 1, 4, 21, 1, 5, 21, 1, 6, 21, 1, 0, 22, 1, 1, 22, 1, 2, 22, 1, 3, 22, 1, 4, 22, 1, 5, 22, 1, 6, 22, 1, 0, 23, 1, 1, 23, 1, 2, 23, 1, 3, 23, 1, 4, 23, 1, 5, 23, 1, 6, 23, 1, 0, 24, 1, 1, 24, 1, 2, 24, 1, 3, 24, 1, 4, 24, 1, 5, 24, 1, 6, 24, 1, 0, 25, 1, 1, 25, 1, 2, 25, 1, 3, 25, 1, 4, 25, 1, 5, 25, 1, 6, 25, 1, 0, 26, 1, 1, 26, 1, 2, 26, 1, 3, 26, 1, 4, 26, 1, 5, 26, 1, 6, 26, 1, 14, 21, 2, 15, 21, 1, 16, 21, 2, 17, 21, 1, 18, 21, 1, 19, 21, 1, 20, 21, 1, 14, 22, 1, 15, 22, 1, 16, 22, 1, 17, 22, 1, 18, 22, 1, 19, 22, 1, 20, 22, 1, 14, 23, 1, 15, 23, 1, 16, 23, 1, 17, 23, 1, 18, 23, 1, 19, 23, 1, 20, 23, 1, 14, 24, 1, 15, 24, 1, 16, 24, 1, 17, 24, 1, 18, 24, 1, 19, 24, 1, 20, 24, 1, 14, 25, 1, 15, 25, 1, 16, 25, 1, 17, 25, 1, 18, 25, 1, 19, 25, 1, 20, 25, 1, 14, 26, 1, 15, 26, 1, 16, 26, 1, 17, 26, 1, 18, 26, 1, 19, 26, 1, 20, 26, 1, 14, 27, 1, 15, 27, 1, 16, 27, 1, 17, 27, 1, 18, 27, 1, 19, 27, 1, 20, 27, 1, 16, 14, 1, 17, 14, 1, 18, 14, 1, 19, 14, 1, 20, 14, 1, 21, 14, 1, 22, 14, 1, 16, 15, 1, 17, 15, 1, 18, 15, 1, 19, 15, 1, 20, 15, 1, 21, 15, 1, 22, 15, 1, 16, 16, 1, 17, 16, 1, 18, 16, 1, 19, 16, 1, 20, 16, 1, 21, 16, 1, 22, 16, 1, 16, 17, 1, 17, 17, 1, 18, 17, 1, 19, 17, 1, 20, 17, 1, 21, 17, 1, 22, 17, 1, 16, 18, 1, 17, 18, 1, 18, 18, 1, 19, 18, 1, 20, 18, 1, 21, 18, 1, 22, 18, 1, 16, 19, 1, 17, 19, 1, 18, 19, 1, 19, 19, 1, 20, 19, 1, 21, 19, 1, 22, 19, 1, 16, 20, 2, 17, 20, 1, 18, 20, 1, 19, 20, 1, 20, 20, 1, 21, 20, 1, 22, 20, 1)
@@ -24,7 +22,7 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 8, 0)
 
 [node name="DunMesh" type="Node3D" parent="."]
-script = ExtResource("3_dye4h")
+script = ExtResource("3_fcrvd")
 grid_map_path = NodePath("../GridMap")
 tile_to_room_id = {
 Vector3(5, 0, 12): -999,
@@ -281,16 +279,25 @@ Vector3i(22, 0, 19): 5,
 Vector3i(22, 0, 20): 5
 }
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 8.5, 1.5, 15.5)
-script = ExtResource("4_j1a1d")
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(0.70710677, -0.3535534, 0.6123724, 0, 0.8660254, 0.50000006, -0.70710677, -0.3535534, 0.6123724, 0, 0, 0)
+projection = 1
+size = 14.09
+script = ExtResource("5_fcrvd")
+player = NodePath("../Player")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("CapsuleShape3D_dye4h")
+[node name="Player" parent="." instance=ExtResource("4_qknhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.545811, 3.3513374, 20.85779)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("CapsuleMesh_j1a1d")
+[node name="NPCNode" type="Node" parent="."]
 
-[node name="CameraPivot" type="Node3D" parent="CharacterBody3D"]
+[node name="TurnManager" type="Node" parent="."]
+script = ExtResource("6_fcrvd")
 
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraPivot"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TurnLabel" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "PLAYER TURN"
+metadata/_edit_use_anchors_ = true
