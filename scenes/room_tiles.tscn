@@ -7,8 +7,6 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xfgv"]
 albedo_color = Color(1, 0.5254902, 1, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5xfgv"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpnns"]
 albedo_color = Color(1, 0.5254902, 0.14901961, 1)
 
@@ -24,11 +22,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_mlqcr")
 [node name="Room_Tile" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_5xfgv")
 surface_material_override/0 = SubResource("StandardMaterial3D_5xfgv")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Room_Tile"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_Tile/StaticBody3D"]
-shape = SubResource("BoxShape3D_5xfgv")
 
 [node name="Door_Tile" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_5xfgv")

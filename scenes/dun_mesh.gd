@@ -55,7 +55,7 @@ func create_dungeon():
 				print(my_room_id)
 				print(neighbor_room_id)
 				if cell_n_index == -1 or cell_n_index == 0:
-					if cell_index == 2:
+					if cell_index == 2 and my_room_id == 1:
 						handle_02(dun_cell, directions.keys()[i])
 					else:
 						handle_none(dun_cell, directions.keys()[i])
