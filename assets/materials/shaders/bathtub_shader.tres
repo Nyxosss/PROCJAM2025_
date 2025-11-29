@@ -1,0 +1,100 @@
+[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://crns6k1o4lg1o"]
+
+[ext_resource type="Texture2D" uid="uid://5vnnp6fqxe5b" path="res://assets/materials/textures/ambient_oclusion_maps/bathtub_AO.png" id="1_pcpte"]
+[ext_resource type="Texture2D" uid="uid://2pun2g2xmp03" path="res://assets/materials/textures/ID maps/bathtub_ID.png" id="2_5mpqs"]
+[ext_resource type="Texture2D" uid="uid://v6vdhqykc5pr" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Metal_01_Grey_Rust_5.png" id="3_wtkir"]
+[ext_resource type="Texture2D" uid="uid://dy3402qyb5evq" path="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Metal_Brushed_01_Grey.png" id="4_x7xfj"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_g0g8p"]
+texture = ExtResource("1_pcpte")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ek7dg"]
+texture = ExtResource("2_5mpqs")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_5qi2g"]
+texture = ExtResource("3_wtkir")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_jby3i"]
+texture = ExtResource("4_x7xfj")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_te7i2"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(1, 1, 1, 1), 2, 0.5]
+op_type = 6
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_c7a48"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_kqm5h"]
+constant = 1.25
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_2 : source_color;
+uniform sampler2D tex_frg_4 : source_color;
+uniform sampler2D tex_frg_5 : source_color;
+uniform sampler2D tex_frg_3 : source_color;
+
+
+
+void fragment() {
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_frg_4, UV);
+
+
+// Texture2D:5
+	vec4 n_out5p0 = texture(tex_frg_5, UV);
+
+
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, UV);
+
+
+// Mix:6
+	vec4 n_out6p0 = mix(n_out4p0, n_out5p0, n_out3p0.x);
+
+
+// VectorOp:7
+	vec4 n_out7p0 = n_out2p0 * n_out6p0;
+
+
+// FloatConstant:8
+	float n_out8p0 = 1.250000;
+
+
+// Output:0
+	ALBEDO = vec3(n_out7p0.xyz);
+	METALLIC = n_out3p0.x;
+	SPECULAR = n_out3p0.x;
+	AO = n_out2p0.x;
+	AO_LIGHT_AFFECT = n_out8p0;
+
+
+}
+"
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_g0g8p")
+nodes/fragment/2/position = Vector2(-660, 260)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_ek7dg")
+nodes/fragment/3/position = Vector2(-680, 600)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_5qi2g")
+nodes/fragment/4/position = Vector2(-620, -340)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_jby3i")
+nodes/fragment/5/position = Vector2(-620, -40)
+nodes/fragment/6/node = SubResource("VisualShaderNodeMix_te7i2")
+nodes/fragment/6/position = Vector2(-80, 0)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVectorOp_c7a48")
+nodes/fragment/7/position = Vector2(180, 40)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatConstant_kqm5h")
+nodes/fragment/8/position = Vector2(183.44525, 562.832)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 6, 3, 0, 0, 2, 3, 0, 6, 2, 4, 0, 6, 0, 5, 0, 6, 1, 2, 0, 7, 0, 6, 0, 7, 1, 7, 0, 0, 0, 3, 0, 0, 4, 8, 0, 0, 7)
