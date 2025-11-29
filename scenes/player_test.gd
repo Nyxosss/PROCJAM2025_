@@ -3,6 +3,8 @@ extends CharacterBody3D
 @export var speed: float = 6.0
 @export var jump_force: float = 4.5
 @export var mouse_sensitivity: float = 0.1
+@onready var node_3d: Node3D = $".."
+
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -13,6 +15,8 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
+	if event.is_action_pressed("interact"):
+		try_interact()
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
 
@@ -44,3 +48,79 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
+
+#func try_interact():
+	#var cam: Camera3D = $CameraPivot/Camera3D
+	#var from = cam.global_transform.origin
+	#var to = from + -cam.global_transform.basis.z * 3.0
+#
+	#print("Ray from: ", from, "  to: ", to)
+#
+	#var space = get_world_3d().direct_space_state
+#
+	#var query := PhysicsRayQueryParameters3D.new()
+	#query.from = from
+	#query.to = to
+	#query.exclude = [self]
+	#query.collision_mask = 0xFFFFFFFF  # hit everything
+#
+	#var result = space.intersect_ray(query)
+#
+	#print("Ray hit: ", result)
+#
+	#if result:
+		#var collider = result.get("collider")
+		#print("Collider: ", collider)
+#
+		#if collider and collider.has_method("use"):
+			#print("USE CALLED ON: ", collider)
+			#collider.use()
+		#else:
+			#print("Hit, but collider has no use() method")
+	#else:
+		#print("NO HIT")
+		
+		
+func try_interact():
+	var cam: Camera3D = $CameraPivot/Camera3D
+	var from = cam.global_transform.origin
+	var to = from + -cam.global_transform.basis.z * 3.0
+
+	print("Ray from: ", from, "  to: ", to)
+
+	var space = get_world_3d().direct_space_state
+
+	var query := PhysicsRayQueryParameters3D.new()
+	query.from = from
+	query.to = to
+	query.exclude = [self]
+	query.collision_mask = 1 | 2
+
+
+	var result = space.intersect_ray(query)
+
+	print("Ray hit: ", result)
+
+	if result:
+		var collider = result.get("collider")
+		print("Collider: ", collider)
+
+		if collider and collider.has_method("use"):
+			print("USE CALLED ON: ", collider)
+			collider.use()
+			open_sibling_door(collider)
+		else:
+			print("Hit, but collider has no use() method")
+	else:
+		print("NO HIT")
+
+func open_sibling_door(clicked_door):
+	var clicked_id = clicked_door.door_id
+	if clicked_id == -1:
+		return
+
+	# Find ALL door nodes in the dungeon and interact with same-id ones
+	for door in node_3d.get_tree().get_nodes_in_group("door"):
+		print("found")
+		if door != clicked_door and door.door_id == clicked_id:
+			door.use()

@@ -294,3 +294,8 @@ mesh = SubResource("CapsuleMesh_j1a1d")
 [node name="CameraPivot" type="Node3D" parent="CharacterBody3D"]
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraPivot"]
+
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/CameraPivot/Camera3D"]
+target_position = Vector3(0, -2, 0)
+collide_with_areas = true
+debug_shape_thickness = 1

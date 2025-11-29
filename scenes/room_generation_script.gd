@@ -26,10 +26,12 @@ func set_start(val: bool) -> void:
 @export var room_amount: int = 5
 @export var room_margin: int = 0
 var tile_to_room_id := {}
+var tile_to_door_id := {}
 
 var room_tiles: Array[PackedVector3Array] = []
 var room_pos: PackedVector3Array = []
-
+var current_room_id : int = 0
+var current_door_id : int = 1
 var first_room_reserved_dir: Vector3i = Vector3i.ZERO
 var reserved_side_chosen: bool = false
 
@@ -50,16 +52,12 @@ func visualize_border():
 		grid_map.set_cell_item(Vector3i(border_size,0,i),0)
 		grid_map.set_cell_item(Vector3i(-1,0,i),0)
 
-
-var current_room_id = 0
-
 func generate():
 	room_tiles.clear()
 	room_pos.clear()
 	visualize_border()
 	var current_room_id = 1
 	for i in range(room_amount):
-		print(i)
 		make_room(current_room_id)
 		current_room_id += 1
 	
@@ -71,13 +69,29 @@ func generate():
 		int(center.z) + first_room_reserved_dir.z * half_size
 	)
 	grid_map.set_cell_item(door_tile, 2)  # 2 = door
+	tile_to_door_id[door_tile] = current_door_id
 
 	#var first_room_center = room_pos[0]
 	#var door_pos = Vector3i(first_room_center) + first_room_reserved_dir * -3
 	#grid_map.set_cell_item(door_pos, 3)  # 2 = door
 	
 	dun_mesh.tile_to_room_id = tile_to_room_id
+	dun_mesh.tile_to_door_id = tile_to_door_id
 	await get_tree().process_frame
+	#print("--- DUN_MESH DEBUG START ---")
+	#print("tile_to_door_id size: ", tile_to_door_id.size())
+#
+	#for k in tile_to_door_id.keys():
+		#print(" key:", k, " type:", typeof(k), " is_Vector3i?:", k is Vector3i, " -> id:", tile_to_door_id[k])
+#
+	## Also print the first few used cells to compare types
+	#var used = grid_map.get_used_cells()
+	#print("example used cell count:", used.size())
+	#for i in range(min(5, used.size())):
+		#var cell = used[i]
+		#print(" used cell[", i, "]:", cell, " type:", typeof(cell), " is_Vector3i?:", cell is Vector3i)
+	#print("--- DUN_MESH DEBUG END ---")
+
 	dun_mesh.create_dungeon()
 	grid_map.hide()
 	spawn_player_in_first_room()
@@ -137,6 +151,12 @@ func make_room(current_room_id:int) -> bool:
 		#doors
 		grid_map.set_cell_item(base,2)
 		grid_map.set_cell_item(base+dir,2)
+		tile_to_door_id[Vector3i(base)] = current_door_id
+		tile_to_door_id[Vector3i(base + dir)] = current_door_id
+		#tile_to_door_id[base] = current_door_id
+		#tile_to_door_id[base+dir] = current_door_id
+		#print("PLACED DOOR at ", base, " and ", base+dir, " ID=", current_door_id)
+		current_door_id += 1
 		return true
 
 	return false

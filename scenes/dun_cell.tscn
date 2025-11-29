@@ -1,26 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://lblrs20gw83m"]
+[gd_scene load_steps=10 format=3 uid="uid://lblrs20gw83m"]
 
 [ext_resource type="Script" uid="uid://cbycy3113gnla" path="res://dun_cell.gd" id="1_qfbl3"]
 [ext_resource type="ArrayMesh" uid="uid://bu0tpjjmgxoht" path="res://assets/meshes/floor.tres" id="2_wtdlu"]
-[ext_resource type="ArrayMesh" uid="uid://4qx0tqnq82vc" path="res://assets/meshes/door.tres" id="3_03nra"]
 [ext_resource type="ArrayMesh" uid="uid://5o0du1vvbgmi" path="res://assets/meshes/door_frame.tres" id="4_0bivh"]
 [ext_resource type="ArrayMesh" uid="uid://cal0pfwhnetou" path="res://assets/meshes/wall.tres" id="5_ixfq0"]
+[ext_resource type="ArrayMesh" uid="uid://f3bu4a3mcc3s" path="res://assets/meshes/half_door.tres" id="5_qfbl3"]
+[ext_resource type="Script" uid="uid://r4ae8kcgjuce" path="res://scenes/door_script.gd" id="6_wtdlu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qfbl3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wtdlu"]
 size = Vector3(0.023742676, 2.971283, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_03nra"]
+size = Vector3(0.6101074, 2.404419, 0.031341553)
+
 [node name="DunCell" type="Node3D"]
 script = ExtResource("1_qfbl3")
 
 [node name="floor" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_wtdlu")
-
-[node name="door" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.5)
-visible = false
-mesh = ExtResource("3_03nra")
 
 [node name="door_frame_up" type="MeshInstance3D" parent="."]
 mesh = ExtResource("4_0bivh")
@@ -84,3 +83,54 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall_colision_down"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48812866, 1.5148908, 0)
 shape = SubResource("BoxShape3D_wtdlu")
+
+[node name="door_up" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+mesh = ExtResource("5_qfbl3")
+
+[node name="door_left" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.05, 0, 0)
+mesh = ExtResource("5_qfbl3")
+
+[node name="door_down" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.05)
+mesh = ExtResource("5_qfbl3")
+
+[node name="door_right" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.05, 0, 0)
+mesh = ExtResource("5_qfbl3")
+
+[node name="door_colision_up" type="StaticBody3D" parent="."]
+script = ExtResource("6_wtdlu")
+door_mesh_path = NodePath("../door_up")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door_colision_up"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00012207031, 0.7022095, -0.42533875)
+shape = SubResource("BoxShape3D_03nra")
+
+[node name="door_colision_left" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("6_wtdlu")
+door_mesh_path = NodePath("../door_left")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door_colision_left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00012207031, 0.7022095, -0.42533875)
+shape = SubResource("BoxShape3D_03nra")
+
+[node name="door_colision_down" type="StaticBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("6_wtdlu")
+door_mesh_path = NodePath("../door_down")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door_colision_down"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00012207031, 0.7022095, -0.42533875)
+shape = SubResource("BoxShape3D_03nra")
+
+[node name="door_colision_right" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("6_wtdlu")
+door_mesh_path = NodePath("../door_right")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door_colision_right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00012207031, 0.7022095, -0.42533875)
+shape = SubResource("BoxShape3D_03nra")
