@@ -1,5 +1,5 @@
-class_name Prop
-extends StaticBody3D
+extends GridMap
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

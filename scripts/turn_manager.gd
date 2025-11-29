@@ -1,12 +1,12 @@
 extends Node
 
+
 @onready var npc_node: Node = $"../NPCNode"
-var TURN_NUMBER: int = 0
 @onready var turn_label: Label = $"../CanvasLayer/TurnLabel"
-var player: Player
-var npcs: Array[Npc]
-#
+@onready var player: Player = $"../Player"
+var TURN_NUMBER: int = 0
 var turn_flag: bool = true
+var npcs: Array[Npc]
 
 func _ready() -> void:
 	add_player_and_npcs()
@@ -22,16 +22,18 @@ func _physics_process(delta: float) -> void:
 # ----------------------------------------------
 
 func add_player_and_npcs() -> void:
-	for child in npc_node.get_children():
-		npcs.append(child)
+	for npc: Npc in npc_node.get_children():
+		npcs.append(npc)
+		npc.player = player
 	for child in owner.get_children():
-		if child is Player:
-			player = child
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
 			
 func all_npcs_done() -> bool:
-	var all_npcs_ended: bool = true
 	#FILTER OUT REMOVED NPCS
 	npcs = npcs.filter(is_instance_valid)
+	var all_npcs_ended: bool = true
 	for npc: Npc in npcs:
 		if npc.my_turn:
 			all_npcs_ended = false

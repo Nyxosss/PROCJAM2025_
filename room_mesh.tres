@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=13 format=3 uid="uid://baficpor5545n"]
+[gd_resource type="MeshLibrary" load_steps=16 format=3 uid="uid://baficpor5545n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mlqcr"]
 
@@ -16,6 +16,8 @@ data = {
 
 [sub_resource type="ImageTexture" id="ImageTexture_f1ad6"]
 image = SubResource("Image_y45yl")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y45yl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xfgv"]
 albedo_color = Color(1, 0.5254902, 1, 1)
@@ -35,6 +37,8 @@ data = {
 [sub_resource type="ImageTexture" id="ImageTexture_miin0"]
 image = SubResource("Image_5hap8")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5hap8"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpnns"]
 albedo_color = Color(1, 0.5254902, 0.14901961, 1)
 
@@ -53,12 +57,14 @@ data = {
 [sub_resource type="ImageTexture" id="ImageTexture_mqsom"]
 image = SubResource("Image_f1ad6")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_f1ad6"]
+
 [resource]
 item/0/name = "Border_Tile"
 item/0/mesh = SubResource("BoxMesh_y45yl")
 item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/0/mesh_cast_shadow = 1
-item/0/shapes = []
+item/0/shapes = [SubResource("BoxShape3D_y45yl"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/0/navigation_layers = 1
 item/0/preview = SubResource("ImageTexture_f1ad6")
@@ -66,7 +72,7 @@ item/1/name = "Room_Tile"
 item/1/mesh = SubResource("BoxMesh_3nayc")
 item/1/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/1/mesh_cast_shadow = 1
-item/1/shapes = []
+item/1/shapes = [SubResource("BoxShape3D_5hap8"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/1/navigation_layers = 1
 item/1/preview = SubResource("ImageTexture_miin0")
@@ -74,7 +80,7 @@ item/2/name = "Door_Tile"
 item/2/mesh = SubResource("BoxMesh_6cm5w")
 item/2/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/2/mesh_cast_shadow = 1
-item/2/shapes = []
+item/2/shapes = [SubResource("BoxShape3D_f1ad6"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/2/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/2/navigation_layers = 1
 item/2/preview = SubResource("ImageTexture_mqsom")
