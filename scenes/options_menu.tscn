@@ -1,0 +1,236 @@
+[gd_scene load_steps=4 format=3 uid="uid://151t4be33871"]
+
+[ext_resource type="Script" uid="uid://b7iaktws00vlv" path="res://scripts/options_menu.gd" id="1_liyum"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ijpji"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_liyum"]
+font_size = 32
+
+[node name="OptionsMenu" type="PanelContainer"]
+custom_minimum_size = Vector2(640, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -30.0
+offset_right = 40.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_liyum")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_ijpji")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VideoPanel" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VideoPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VideoPanel/VBoxContainer"]
+layout_mode = 2
+text = "Video"
+label_settings = SubResource("LabelSettings_liyum")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VideoPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VideoPanel/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="ResolutionScaleLabel" type="Label" parent="HBoxContainer/VideoPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Resolution Scale"
+vertical_alignment = 1
+
+[node name="ResolutionScaleContainer" type="HBoxContainer" parent="HBoxContainer/VideoPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResolutionScaleSlider" type="HSlider" parent="HBoxContainer/VideoPanel/VBoxContainer/GridContainer/ResolutionScaleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.25
+max_value = 1.0
+step = 0.01
+value = 1.0
+scrollable = false
+tick_count = 4
+ticks_on_borders = true
+
+[node name="ResolutionScaleValue" type="Label" parent="HBoxContainer/VideoPanel/VBoxContainer/GridContainer/ResolutionScaleContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="WindowModeLabel" type="Label" parent="HBoxContainer/VideoPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Window Mode"
+
+[node name="WindowModeButton" type="OptionButton" parent="HBoxContainer/VideoPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "Exclusive Fullscreen"
+popup/item_2/id = 2
+
+[node name="VSyncLabel" type="Label" parent="HBoxContainer/VideoPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "V-Sync"
+vertical_alignment = 1
+
+[node name="VSyncButton" type="OptionButton" parent="HBoxContainer/VideoPanel/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 1
+item_count = 4
+popup/item_0/text = "Disabled"
+popup/item_0/id = 0
+popup/item_1/text = "Enabled"
+popup/item_1/id = 1
+popup/item_2/text = "Adaptive"
+popup/item_2/id = 2
+popup/item_3/text = "Mailbox"
+popup/item_3/id = 3
+
+[node name="AudioPanel" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/AudioPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/AudioPanel/VBoxContainer"]
+layout_mode = 2
+text = "Audio"
+label_settings = SubResource("LabelSettings_liyum")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/AudioPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/AudioPanel/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Master Volume"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MasterVolumeSlider" type="HSlider" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 100.0
+scrollable = false
+tick_count = 5
+ticks_on_borders = true
+
+[node name="MasterVolumeValue" type="Label" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="MusicVolumeLabel" type="Label" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "Music Volume"
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="MusicVolumeSlider" type="HSlider" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 100.0
+scrollable = false
+tick_count = 5
+ticks_on_borders = true
+
+[node name="MusicVolumeValue" type="Label" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="SFXVolumeLabel" type="Label" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "Sound Effects Volume"
+vertical_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="SFXVolumeSlider" type="HSlider" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 100.0
+scrollable = false
+tick_count = 5
+ticks_on_borders = true
+
+[node name="SFXVolumeValue" type="Label" parent="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="BackButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Back"
+
+[connection signal="value_changed" from="HBoxContainer/VideoPanel/VBoxContainer/GridContainer/ResolutionScaleContainer/ResolutionScaleSlider" to="." method="_on_resolution_scale_slider_value_changed"]
+[connection signal="item_selected" from="HBoxContainer/VideoPanel/VBoxContainer/GridContainer/WindowModeButton" to="." method="_on_window_mode_button_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VideoPanel/VBoxContainer/GridContainer/VSyncButton" to="." method="_on_v_sync_button_item_selected"]
+[connection signal="value_changed" from="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer2/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/AudioPanel/VBoxContainer/GridContainer/HBoxContainer3/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="pressed" from="HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
