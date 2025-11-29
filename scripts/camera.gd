@@ -10,8 +10,8 @@ func _input(event):
 	
 func _physics_process(delta: float) -> void:
 	if player != null:
-		global_transform.origin = player.global_transform.origin + Vector3(17, 9, 13)
-
+		global_transform.origin = player.global_transform.origin + \
+		Vector3(17, 9, 13)
 func shoot_ray() -> StaticBody3D:
 	var mouse_pos = get_viewport().get_mouse_position()
 

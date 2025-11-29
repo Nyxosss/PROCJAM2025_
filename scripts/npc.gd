@@ -14,6 +14,7 @@ var behavior_choice_array: Array[Behavior]
 #PROP LOGIC
 var current_prop: Prop
 var destination_prop: Prop
+var destination_pos: Vector3
 #FLAGS
 var is_moving: bool = false
 var is_hiding: bool = false
@@ -24,8 +25,12 @@ var select_prop_flag: bool = true
 var player: Player
 var my_turn: bool = false
 #
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@onready var mesh: MeshInstance3D = $Mesh
+
 
 func _ready() -> void:
+	mesh.hide()
 	assign_random_personality()
 
 func _process(delta: float) -> void:
@@ -38,7 +43,7 @@ func _physics_process(delta: float) -> void:
 			select_random_destination_prop()
 		else:
 			hide_behind_prop(delta)
-
+	
 # ---------------------------- SETUP --------------------------
 
 func assign_random_personality() -> void:
@@ -72,13 +77,18 @@ func select_random_destination_prop() -> void:
 		while current_prop == random_prop:
 			random_prop = prop_list[randi_range(0, prop_list.size()-1)]
 		destination_prop = random_prop
+		destination_pos = Vector3(
+			random_prop.global_position.x,
+			self.global_position.y,
+			random_prop.global_position.z
+		)
 		select_prop_flag = false
 		
 func hide_behind_prop(delta: float) -> void:
-	if global_position.distance_to(destination_prop.global_position) > 0.01:
-		global_position = global_position.move_toward(destination_prop.global_position, delta * 5.0)
+	if global_position.distance_to(destination_pos) > 0.01:
+		global_position = global_position.move_toward(destination_pos, delta * 5.0)
 	else:
-		global_position = destination_prop.global_position
+		global_position = destination_pos
 		current_prop = destination_prop
 		if my_turn:
 			is_hiding = true

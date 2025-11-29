@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgrrave63joy2"]
+[gd_scene load_steps=9 format=3 uid="uid://bgrrave63joy2"]
 
 [ext_resource type="Script" uid="uid://draefwoe08fe3" path="res://scenes/room_generation_script.gd" id="1_uxo3d"]
 [ext_resource type="MeshLibrary" uid="uid://baficpor5545n" path="res://room_mesh.tres" id="2_qknhu"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://b14hr86quckjd" path="res://scenes/player.tscn" id="4_qknhu"]
 [ext_resource type="Script" uid="uid://bs3vtubjkb06l" path="res://scripts/camera.gd" id="5_fcrvd"]
 [ext_resource type="Script" uid="uid://cw32bmtbk6m3d" path="res://scripts/turn_manager.gd" id="6_fcrvd"]
+[ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="7_uotjc"]
+[ext_resource type="PackedScene" uid="uid://ca3bh0jpl15fv" path="res://scenes/npc.tscn" id="7_xrube"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_uxo3d")
@@ -289,7 +291,28 @@ player = NodePath("../Player")
 [node name="Player" parent="." instance=ExtResource("4_qknhu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.545811, 3.3513374, 20.85779)
 
+[node name="Prop" parent="." instance=ExtResource("7_uotjc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.78639, 1.6538544, 23.723213)
+
+[node name="Prop2" parent="." instance=ExtResource("7_uotjc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.852945, 1.5373569, 25.85994)
+
+[node name="Prop3" parent="." instance=ExtResource("7_uotjc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.68894, 1.6114182, 19.7767)
+
 [node name="NPCNode" type="Node" parent="."]
+
+[node name="Npc" parent="NPCNode" instance=ExtResource("7_xrube")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.056902, 2.702775, 25.342024)
+
+[node name="Npc2" parent="NPCNode" instance=ExtResource("7_xrube")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.215937, 3.0544033, 16.580067)
+
+[node name="Npc3" parent="NPCNode" instance=ExtResource("7_xrube")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2874146, 3.253232, 24.24815)
+
+[node name="Npc4" parent="NPCNode" instance=ExtResource("7_xrube")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.36654, 4.3609304, 24.09124)
 
 [node name="TurnManager" type="Node" parent="."]
 script = ExtResource("6_fcrvd")
@@ -301,3 +324,21 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "PLAYER TURN"
 metadata/_edit_use_anchors_ = true
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+horizontal_alignment = 1
+
+[node name="NpcNumLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0

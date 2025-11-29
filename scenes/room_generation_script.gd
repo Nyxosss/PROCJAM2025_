@@ -257,4 +257,3 @@ func spawn_player_in_first_room():
 	var center = room_pos[0]
 
 	player.global_position = Vector3(center.x, 1.5, center.z)
-	player.tiles_setup_flag = true
