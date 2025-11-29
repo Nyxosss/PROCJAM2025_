@@ -1,6 +1,6 @@
 [gd_resource type="ArrayMesh" load_steps=3 format=4 uid="uid://f3bu4a3mcc3s"]
 
-[ext_resource type="Material" uid="uid://yuomyq2pe23w" path="res://assets/materials/door_shader_material.tres" id="1_mvsog"]
+[ext_resource type="Material" uid="uid://yuomyq2pe23w" path="res://assets/materials/exclusive_materials/door_shader_material.tres" id="1_mvsog"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_7dn8c"]
 _surfaces = [{

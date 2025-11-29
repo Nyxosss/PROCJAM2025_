@@ -13,6 +13,9 @@ func get_grid_map() -> GridMap:
 	return grid_map
 
 @export var start : bool = false : set = set_start
+var room_nodes := {}
+
+var last_player_room_id := -1
 
 func _ready():
 	if not Engine.is_editor_hint():
@@ -34,6 +37,17 @@ var current_room_id : int = 0
 var current_door_id : int = 1
 var first_room_reserved_dir: Vector3i = Vector3i.ZERO
 var reserved_side_chosen: bool = false
+
+func _process(delta: float) -> void:
+	var player = get_node(player_path)
+	if player == null:
+		return
+
+	var room_id = get_player_room_id(player.global_position)
+
+	if room_id != last_player_room_id:
+		last_player_room_id = room_id
+		_update_room_visibility(room_id)
 
 func set_border_size(val: int) -> void:
 	border_size = val
@@ -93,6 +107,9 @@ func generate():
 	#print("--- DUN_MESH DEBUG END ---")
 
 	dun_mesh.create_dungeon()
+	# After dun_mesh creates the dungeon, pull out the dun_cell instances
+	room_nodes = dun_mesh.room_nodes
+
 	grid_map.hide()
 	spawn_player_in_first_room()
 
@@ -181,13 +198,7 @@ func place_first_room() -> bool:
 	]
 	first_room_reserved_dir = sides[randi() % sides.size()]
 	reserved_side_chosen = true
-#
-	## Store the reserved tiles so no other rooms can attach there
-	#var reserved_tile := Vector3i(start_pos) + first_room_reserved_dir
-	#tile_to_room_id[reserved_tile] = -999  # special value for “do not attach”
-	#
-	####2 try
-	# Reserve all tiles along the chosen edge so no other room attaches there
+
 	place_room(start_pos, width, height, 1)
 	var first_room := room_tiles[0]
 	for tile in first_room:
@@ -277,3 +288,29 @@ func spawn_player_in_first_room():
 	var center = room_pos[0]
 
 	player.global_position = Vector3(center.x, 1.5, center.z)
+
+func world_to_tile(pos: Vector3) -> Vector3i:
+	return Vector3i(int(pos.x), 0, int(pos.z))
+
+func get_player_room_id(player_pos: Vector3) -> int:
+	var tile := world_to_tile(player_pos)
+	if tile_to_room_id.has(tile):
+		return tile_to_room_id[tile]
+	return -1
+
+func get_rooms_player_is_not_in(player_pos: Vector3) -> Array[int]:
+	var player_room = get_player_room_id(player_pos)
+	var result := []
+
+	for i in range(room_tiles.size()):
+		var room_id = i + 1
+		if room_id != player_room:
+			result.append(room_id)
+
+	return result
+
+func _update_room_visibility(current_room_id: int) -> void:
+	for id in room_nodes.keys():
+		var visible = (id == current_room_id)
+		for node in room_nodes[id]:
+			node.visible = visible
