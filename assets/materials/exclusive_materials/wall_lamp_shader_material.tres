@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cnrprr84w0rks"]
+
+[ext_resource type="Shader" uid="uid://cg2jqu5b25vui" path="res://assets/materials/shaders/wall_lamp_shader.tres" id="1_3grrs"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_3grrs")
