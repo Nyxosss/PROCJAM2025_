@@ -1,35 +1,42 @@
 extends Node
 
-
 @onready var npc_node: Node = $"../NPCNode"
-@onready var turn_label: Label = $"../CanvasLayer/TurnLabel"
 @onready var player: Player = $"../Player"
 var TURN_NUMBER: int = 0
 var turn_flag: bool = true
 var npcs: Array[Npc]
 
+@onready var turn_label: Label = $"../CanvasLayer/TurnLabel"
+@onready var health_label: Label = $"../CanvasLayer/HealthLabel"
+@onready var npc_num_label: Label = $"../CanvasLayer/NpcNumLabel"
+
 func _ready() -> void:
 	add_player_and_npcs()
 
-#VERY INNEFICIENT BUT WORKS
+#VERY INEFFICIENT BUT WORKS
 func _physics_process(delta: float) -> void:
 	if player != null and not player.my_turn and turn_flag:
 		now_its_npcs_turn()
 	if player != null and player.my_turn and not turn_flag:
 		if all_npcs_done():
 			now_its_players_turn()
-
+	
+	if player != null:
+		health_label.text = "PLAYER HP: " + str(player.health)
+	if npcs.size() > 0:
+		npc_num_label.text = "NPCS LEFT: " + str(npcs.size())
 # ----------------------------------------------
 
 func add_player_and_npcs() -> void:
 	for npc: Npc in npc_node.get_children():
 		npcs.append(npc)
-		npc.player = player
+		if player != null:
+			npc.player = player
 	for child in owner.get_children():
 		if child is Prop:
 			for npc: Npc in npcs:
 				npc.prop_list.append(child)
-			
+	
 func all_npcs_done() -> bool:
 	#FILTER OUT REMOVED NPCS
 	npcs = npcs.filter(is_instance_valid)
@@ -56,6 +63,10 @@ func now_its_npcs_turn() -> void:
 		npc.my_turn = true
 		npc.is_moving = true
 		npc.select_prop_flag = true
+		if not npc.axis_lock_linear_y:
+			npc.axis_lock_linear_y = !npc.axis_lock_linear_y
+		if not npc.axis_lock_angular_y:
+			npc.axis_lock_angular_y = !npc.axis_lock_angular_y
 	print('NPCS TURN')
 	turn_label.text = "NPC TURN"
 	turn_flag = false

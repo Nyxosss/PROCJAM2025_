@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bd5uklbd6p1q8"]
+
+[ext_resource type="Shader" uid="uid://crns6k1o4lg1o" path="res://assets/materials/shaders/bathtub_shader.tres" id="1_h5oy7"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_h5oy7")
