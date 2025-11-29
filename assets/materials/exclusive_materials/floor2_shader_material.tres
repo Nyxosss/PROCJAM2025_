@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bid0m7tu2eb76"]
+
+[ext_resource type="Shader" uid="uid://d3a1383vxr8l0" path="res://assets/materials/shaders/floor_shader.tres" id="1_q5cds"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_q5cds")
+shader_parameter/isWC = true

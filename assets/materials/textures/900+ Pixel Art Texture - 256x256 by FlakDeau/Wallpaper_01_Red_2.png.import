@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpkpto5c5q2ki"
-path.s3tc="res://.godot/imported/STFdoor_frame_tileAO.png-42b80adf68df8a642c74e830b1b7ee76.s3tc.ctex"
+uid="uid://d4lwy0mhf530r"
+path.s3tc="res://.godot/imported/Wallpaper_01_Red_2.png-e29083afd96bd69278ed8b2b3664efd8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "06e227c142ddc3efbbc247defa997a76"
-}
 
 [deps]
 
-source_file="res://assets/3D_models/wall_tiles/STFdoor_frame_tileAO.png"
-dest_files=["res://.godot/imported/STFdoor_frame_tileAO.png-42b80adf68df8a642c74e830b1b7ee76.s3tc.ctex"]
+source_file="res://assets/materials/textures/900+ Pixel Art Texture - 256x256 by FlakDeau/Wallpaper_01_Red_2.png"
+dest_files=["res://.godot/imported/Wallpaper_01_Red_2.png-e29083afd96bd69278ed8b2b3664efd8.s3tc.ctex"]
 
 [params]
 
