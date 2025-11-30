@@ -23,10 +23,20 @@ var last_player_room_id := -1
 
 func _ready():
 	if not Engine.is_editor_hint():
-		generate()
+		for attempt in range(10):
+			generate()
+
+			if room_pos.size() == room_amount:
+				print("Dungeon generated successfully in attempt ", attempt+1)
+				return
 
 func set_start(val: bool) -> void:
-	generate()
+	for attempt in range(10):
+		generate()
+
+		if room_pos.size() == room_amount:
+			print("Dungeon generated successfully in attempt ", attempt+1)
+			return
 
 @export var border_size : int = 25 : set = set_border_size
 @export var room_size : int = 7
@@ -37,6 +47,7 @@ func set_start(val: bool) -> void:
 @export var bathroom_template: PackedScene
 @export var kitchen_template: PackedScene
 @export var living_room_template: PackedScene
+@onready var error_label: Label = $CanvasLayer/ErrorLabel
 var used_rooms := []
 
 #var room_objects := {}  # room_id → spawned object
@@ -90,9 +101,12 @@ func generate():
 	room_tiles.clear()
 	room_pos.clear()
 	visualize_border()
+	
 	var current_room_id = 1
 	for i in range(room_amount):
-		make_room(current_room_id)
+		var room_error = make_room(current_room_id)
+		#if !room_error:
+			#error_label.visible = true
 		current_room_id += 1
 
 	var half_size = int(room_size / 2)  # 3
