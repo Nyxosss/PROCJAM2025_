@@ -68,6 +68,7 @@ func define_behavior_weights() -> void:
 
 func select_random_destination_prop() -> void:
 	if prop_list.size() > 0:
+		print("hello")
 		var random_prop: Prop = prop_list[randi_range(0, prop_list.size()-1)]
 		print('RANDOM PROP SELECTED: ', random_prop)
 		

@@ -3,7 +3,7 @@ extends Control
 
 signal return_button_pressed
 
-var _options_menu: OptionsMenu = preload("uid://151t4be33871").instantiate()
+var _options_menu: OptionsMenu = preload("res://scenes/options_menu.tscn").instantiate()
 
 
 func _init() -> void:

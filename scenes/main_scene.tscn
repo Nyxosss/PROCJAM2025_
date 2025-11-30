@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dudf1qmatkdw4"]
+[gd_scene load_steps=14 format=3 uid="uid://dudf1qmatkdw4"]
 
 [ext_resource type="Script" uid="uid://draefwoe08fe3" path="res://scenes/room_generation_script.gd" id="1_si52b"]
 [ext_resource type="PackedScene" uid="uid://bki2o5krs61cg" path="res://scenes/room_tiles.tscn" id="2_01n6w"]
@@ -11,10 +11,8 @@
 [ext_resource type="Script" uid="uid://bs3vtubjkb06l" path="res://scripts/camera.gd" id="9_58gk3"]
 [ext_resource type="PackedScene" uid="uid://b14hr86quckjd" path="res://scenes/player.tscn" id="10_to7gp"]
 [ext_resource type="PackedScene" uid="uid://ca3bh0jpl15fv" path="res://scenes/npc.tscn" id="11_u0fll"]
-[ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="12_6p3nn"]
 [ext_resource type="Script" uid="uid://cw32bmtbk6m3d" path="res://scripts/turn_manager.gd" id="13_k67gn"]
 [ext_resource type="Script" uid="uid://b0c8tlw4jtibp" path="res://scenes/dun_mesh.gd" id="14_k3g67"]
-[ext_resource type="PackedScene" uid="uid://c5y4c5v1mu8qm" path="res://scenes/pause_menu.tscn" id="15_4bgka"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_si52b")
@@ -56,15 +54,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.021978, 2.2718444, 16.1403
 [node name="Npc3" parent="NPCNode" instance=ExtResource("11_u0fll")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0357647, 2.3076015, 3.2973614)
 
-[node name="Prop" parent="." instance=ExtResource("12_6p3nn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.761833, 1.5328193, 17.961163)
-
-[node name="Prop2" parent="." instance=ExtResource("12_6p3nn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.843244, 1.602035, 22.996847)
-
-[node name="Prop3" parent="." instance=ExtResource("12_6p3nn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.892207, 1.5783052, 3.658825)
-
 [node name="TurnManager" type="Node" parent="."]
 script = ExtResource("13_k67gn")
 
@@ -101,5 +90,3 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
-
-[node name="PauseMenu" parent="." instance=ExtResource("15_4bgka")]

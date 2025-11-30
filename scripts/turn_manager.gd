@@ -10,8 +10,24 @@ var npcs: Array[Npc]
 @onready var health_label: Label = $"../CanvasLayer/HealthLabel"
 @onready var npc_num_label: Label = $"../CanvasLayer/NpcNumLabel"
 
+var kitchen : Node3D 
+var living_room : Node3D
+var bathroom : Node3D
+var bedroom : Node3D
+#@onready var dun_mesh: Node3D = $"../DunMesh"
+@onready var room_templates: Node3D = $"../RoomTemplates"
+
 func _ready() -> void:
+	await wait_for_children()
+	kitchen = $"../RoomTemplates/kitchen_template"
+	living_room = $"../RoomTemplates/living_room_template"
+	bathroom = $"../RoomTemplates/bathroom_template"
+	bedroom = $"../RoomTemplates/BedroomTemplate"
 	add_player_and_npcs()
+
+func wait_for_children() -> void:
+	while room_templates.get_child_count() != 4:
+		await get_tree().process_frame
 
 #VERY INEFFICIENT BUT WORKS
 func _physics_process(delta: float) -> void:
@@ -32,10 +48,11 @@ func add_player_and_npcs() -> void:
 		npcs.append(npc)
 		if player != null:
 			npc.player = player
-	for child in owner.get_children():
-		if child is Prop:
-			for npc: Npc in npcs:
-				npc.prop_list.append(child)
+	#for child in owner.get_children():
+		#if child is Prop:
+			#for npc: Npc in npcs:
+				#npc.prop_list.append(child)
+	set_all_props()
 	
 func all_npcs_done() -> bool:
 	#FILTER OUT REMOVED NPCS
@@ -70,3 +87,21 @@ func now_its_npcs_turn() -> void:
 	print('NPCS TURN')
 	turn_label.text = "NPC TURN"
 	turn_flag = false
+
+func set_all_props():
+	for child in bedroom.get_children():
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
+	for child in living_room.get_children():
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
+	for child in bathroom.get_children():
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
+	for child in kitchen.get_children():
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
