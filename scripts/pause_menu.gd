@@ -1,29 +1,27 @@
+class_name PauseMenu
 extends Control
 
-var _options_menu := preload("res://scenes/options_menu.tscn")
+signal return_button_pressed
 
-@onready var _scene_tree := get_tree()
-
-
-func _ready() -> void:
-	visible = false
+var _options_menu: OptionsMenu = preload("uid://151t4be33871").instantiate()
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"pause"):
-		visible = !visible
-		_scene_tree.paused = visible
+func _init() -> void:
+	_options_menu.back_button_pressed.connect(_on_options_menu_back_button_pressed)
 
 
 func _on_return_button_pressed() -> void:
-	visible = false
-	_scene_tree.paused = false
+	return_button_pressed.emit()
 
 
 func _on_options_button_pressed() -> void:
-	add_child(_options_menu.instantiate())
+	add_child(_options_menu)
 
 
 func _on_quit_button_pressed() -> void:
-	_scene_tree.root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	_scene_tree.quit()
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	get_tree().quit()
+
+
+func _on_options_menu_back_button_pressed() -> void:
+	remove_child(_options_menu)
