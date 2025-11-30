@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://bn5l20ues06c1"]
+[gd_scene load_steps=3 format=3 uid="uid://chggu2ca0vx2p"]
+
+[ext_resource type="Script" uid="uid://bwopwdmiabvkt" path="res://scripts/end_screen.gd" id="1_wv5lq"]
+[ext_resource type="AudioStream" uid="uid://c00jjd7y67jph" path="res://assets/audio/music/play_ menu.mp3" id="2_erk2x"]
 
 [node name="WinScreen" type="Control"]
 layout_mode = 3
@@ -7,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wv5lq")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -19,5 +23,12 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="PanelContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Everyone is dead, you win"
+text = "Everyone is dead, you win
+Press any key to return to the Main Menu"
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PanelContainer"]
+process_mode = 3
+stream = ExtResource("2_erk2x")
+autoplay = true
+bus = &"Music"

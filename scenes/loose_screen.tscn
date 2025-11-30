@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://byekr0fjwvy6d"]
+[gd_scene load_steps=2 format=3 uid="uid://x52m0y4q7fp"]
+
+[ext_resource type="Script" uid="uid://bwopwdmiabvkt" path="res://scripts/end_screen.gd" id="1_glvt5"]
 
 [node name="loose_screen" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_glvt5")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -19,5 +22,6 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="PanelContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "They escaped, you loose"
+text = "They escaped, you loose
+Press any key to return to the Main Menu"
 horizontal_alignment = 1
