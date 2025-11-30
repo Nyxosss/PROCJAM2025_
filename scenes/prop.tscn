@@ -22,6 +22,7 @@ script = ExtResource("1_n1e5n")
 shape = SubResource("BoxShape3D_n1e5n")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_n1e5n")
 
 [node name="BackArea" type="Area3D" parent="."]

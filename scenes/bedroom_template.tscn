@@ -1,0 +1,74 @@
+[gd_scene load_steps=15 format=3 uid="uid://cd45xjwltptrf"]
+
+[ext_resource type="PackedScene" uid="uid://chnkrc5ave8nh" path="res://assets/3D_models/furniture/STFbed.glb" id="1_ucr5v"]
+[ext_resource type="PackedScene" uid="uid://d0sr6x5x3i61b" path="res://assets/3D_models/furniture/STFbedside_table.glb" id="2_c5tnc"]
+[ext_resource type="PackedScene" uid="uid://drlhev2sp24mu" path="res://assets/3D_models/furniture/STFwardrobe_002.glb" id="3_nm46e"]
+[ext_resource type="PackedScene" uid="uid://dcauwbuo3ih6c" path="res://assets/3D_models/furniture/STFshelves_2.glb" id="4_868k3"]
+[ext_resource type="PackedScene" uid="uid://q45djqygup02" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_center.glb" id="5_jxtny"]
+[ext_resource type="PackedScene" uid="uid://bjytepbamb0m" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_bl.glb" id="6_o60j8"]
+[ext_resource type="PackedScene" uid="uid://qixw443846n1" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_br.glb" id="7_mbmbf"]
+[ext_resource type="PackedScene" uid="uid://duvogqn0dhry7" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_fl.glb" id="8_5tub5"]
+[ext_resource type="PackedScene" uid="uid://w5mu6fg2f77o" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_fr.glb" id="9_d8k2q"]
+[ext_resource type="PackedScene" uid="uid://dwd7kwmgaflre" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_b.glb" id="10_e6tlu"]
+[ext_resource type="PackedScene" uid="uid://dfsg21nf46bbq" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_f.glb" id="11_ocav3"]
+[ext_resource type="PackedScene" uid="uid://8rg6qpl4hsn4" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_l.glb" id="12_4ut5d"]
+[ext_resource type="PackedScene" uid="uid://vrj2u50mlbjy" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_r.glb" id="13_vsijv"]
+[ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="14_o60j8"]
+
+[node name="BedroomTemplate" type="Node3D"]
+
+[node name="STFshelves_22" parent="." instance=ExtResource("4_868k3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="Prop" parent="." instance=ExtResource("14_o60j8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="carpet" type="Node3D" parent="Prop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="STFcarpet_center2" parent="Prop/carpet" instance=ExtResource("5_jxtny")]
+
+[node name="STFcarpet_corner_bl2" parent="Prop/carpet" instance=ExtResource("6_o60j8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="STFcarpet_corner_br2" parent="Prop/carpet" instance=ExtResource("7_mbmbf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="STFcarpet_corner_fl2" parent="Prop/carpet" instance=ExtResource("8_5tub5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="STFcarpet_corner_fr2" parent="Prop/carpet" instance=ExtResource("9_d8k2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="STFcarpet_side_b2" parent="Prop/carpet" instance=ExtResource("10_e6tlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="STFcarpet_side_f2" parent="Prop/carpet" instance=ExtResource("11_ocav3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="STFcarpet_side_l2" parent="Prop/carpet" instance=ExtResource("12_4ut5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="STFcarpet_side_r2" parent="Prop/carpet" instance=ExtResource("13_vsijv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="Prop2" parent="." instance=ExtResource("14_o60j8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2438288, 0.5, 0)
+
+[node name="STFbedside_table3" parent="Prop2" instance=ExtResource("2_c5tnc")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.24382877, -0.5, 0)
+
+[node name="Prop3" parent="." instance=ExtResource("14_o60j8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 3.2338176)
+
+[node name="STFwardrobe_0022" parent="Prop3" instance=ExtResource("3_nm46e")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.5, -0.23381758)
+
+[node name="Prop4" parent="." instance=ExtResource("14_o60j8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3272395, 0.5, 0)
+
+[node name="STFbed2" parent="Prop4" instance=ExtResource("1_ucr5v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6727605, -0.5, 0.5)
+
+[node name="Prop5" parent="." instance=ExtResource("14_o60j8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.3139398)

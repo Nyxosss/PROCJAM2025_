@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnudlaug11rd0"]
+
+[ext_resource type="PackedScene" uid="uid://bld6oa60sw6jp" path="res://assets/3D_models/toilet/STFbathtub_005.glb" id="1_7ys0j"]
+[ext_resource type="PackedScene" uid="uid://dne13caop0p6t" path="res://assets/3D_models/toilet/STFwccloset_2.glb" id="2_u21jy"]
+[ext_resource type="PackedScene" uid="uid://djkqmegfe8dgb" path="res://assets/3D_models/toilet/STFtrash_can.glb" id="3_164g3"]
+[ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="4_u21jy"]
+
+[node name="bathroom_template" type="Node3D"]
+
+[node name="Prop" parent="." instance=ExtResource("4_u21jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 3.067)
+
+[node name="STFwccloset_22" parent="Prop" instance=ExtResource("2_u21jy")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.5, -0.06699991)
+
+[node name="Prop2" parent="." instance=ExtResource("4_u21jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9607697, 0.5, 0)
+
+[node name="STFtrash_can2" parent="Prop2" instance=ExtResource("3_164g3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.039230347, -0.5, 0)
+
+[node name="Prop3" parent="." instance=ExtResource("4_u21jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9944093, 0.5, 0.48145258)
+
+[node name="STFbathtub_0052" parent="Prop3" instance=ExtResource("1_7ys0j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0055906773, -0.5, -0.48145258)

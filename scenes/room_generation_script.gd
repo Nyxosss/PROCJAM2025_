@@ -6,6 +6,7 @@ var grid_map: GridMap = null
 @onready var dun_mesh : Node3D = get_node(dun_mesh_path)
 @export var player_path: NodePath
 @onready var room_objects_root := $RoomObjs
+@onready var room_templates: Node3D = $RoomTemplates
 
 func get_grid_map() -> GridMap:
 	if grid_map == null:
@@ -30,6 +31,12 @@ func set_start(val: bool) -> void:
 @export var room_amount: int = 5
 @export var room_margin: int = 0
 @export var room_object_scene: PackedScene
+@export var bedroom_template: PackedScene
+@export var bathroom_template: PackedScene
+@export var kitchen_template: PackedScene
+@export var living_room_template: PackedScene
+var used_rooms := []
+
 var room_objects := {}  # room_id → spawned object
 var tile_to_room_id := {}
 var tile_to_door_id := {}
@@ -72,7 +79,10 @@ func visualize_border():
 func generate():
 	for c in room_objects_root.get_children():
 		c.queue_free()
+	for c in room_templates.get_children():
+		c.queue_free()
 	room_objects.clear()
+	used_rooms.clear()
 	room_tiles.clear()
 	room_pos.clear()
 	visualize_border()
@@ -115,7 +125,12 @@ func generate():
 	dun_mesh.create_dungeon()
 	# After dun_mesh creates the dungeon, pull out the dun_cell instances
 	room_nodes = dun_mesh.room_nodes
-	spawn_room_objects()
+	#spawn_room_objects()
+	place_template_in_random_room(bedroom_template)
+	place_template_in_random_room(bathroom_template)
+	place_template_in_random_room(kitchen_template)
+	place_template_in_random_room(living_room_template)
+	
 	grid_map.hide()
 	spawn_player_in_first_room()
 
@@ -171,11 +186,27 @@ func make_room(current_room_id:int) -> bool:
 		# Place room
 		place_room(start_pos, width, height, current_room_id)
 		
+		#####TIREI MAS TESTAAAA
 		#doors
-		grid_map.set_cell_item(base,2)
-		grid_map.set_cell_item(base+dir,2)
+		var previous_room = room_tiles[current_room_id - 1]
+
+		# Adjust base if needed
+		var adjusted_base = adjust_door_if_center(base, previous_room)
+
+		# Place door using adjusted_base
+		grid_map.set_cell_item(adjusted_base, 2)
+		grid_map.set_cell_item(Vector3(adjusted_base) + dir, 2)
+
+		tile_to_door_id[adjusted_base] = current_door_id
+		tile_to_door_id[Vector3(adjusted_base) + dir] = current_door_id
+		
+		grid_map.set_cell_item(adjusted_base,2)
+		grid_map.set_cell_item(Vector3(adjusted_base)+dir,2)
 		tile_to_door_id[Vector3i(base)] = current_door_id
 		tile_to_door_id[Vector3i(base + dir)] = current_door_id
+		#######
+		
+		
 		#tile_to_door_id[base] = current_door_id
 		#tile_to_door_id[base+dir] = current_door_id
 		#print("PLACED DOOR at ", base, " and ", base+dir, " ID=", current_door_id)
@@ -183,6 +214,48 @@ func make_room(current_room_id:int) -> bool:
 		return true
 
 	return false
+
+func adjust_door_if_center(base: Vector3i, room: Array) -> Vector3i:
+	# Extract min/max
+	var xs := []
+	var zs := []
+	for t in room:
+		xs.append(t.x)
+		zs.append(t.z)
+
+	var min_x = xs.min()
+	var max_x = xs.max()
+	var min_z = zs.min()
+	var max_z = zs.max()
+
+	var center_x = (min_x + max_x) / 2.0
+	var center_z = (min_z + max_z) / 2.0
+
+	# --- NORTH wall (z = max_z)
+	if base.z == max_z:
+		if base.x == center_x:
+			return Vector3i(base.x + 2, base.y, base.z) # move right along X
+		return base
+
+	# --- SOUTH wall (z = min_z)
+	if base.z == min_z:
+		if base.x == center_x:
+			return Vector3i(base.x + 2, base.y, base.z)
+		return base
+
+	# --- EAST wall (x = max_x)
+	if base.x == max_x:
+		if base.z == center_z:
+			return Vector3i(base.x, base.y, base.z + 2) # move right along Z
+		return base
+
+	# --- WEST wall (x = min_x)
+	if base.x == min_x:
+		if base.z == center_z:
+			return Vector3i(base.x, base.y, base.z + 2)
+		return base
+
+	return base
 
 
 func place_first_room() -> bool:
@@ -416,3 +489,31 @@ func spawn_room_objects():
 
 		# Store reference
 		room_objects[room_id] = obj
+
+func place_template_in_random_room(template_scene: PackedScene) -> Node3D:
+	if room_tiles.size() <= 1:
+		return null  # no room available except the first one
+
+	# Build a list of available rooms (excluding first and already used)
+	var available_rooms := []
+	for i in range(1, room_tiles.size()):
+		if not i in used_rooms:
+			available_rooms.append(i)
+
+	if available_rooms.size() == 0:
+		return null  # no rooms left
+
+	# Pick a random available room
+	var room_index = available_rooms[randi() % available_rooms.size()]
+	var room_center = room_pos[room_index]
+
+	# Instance the template
+	var template_instance = template_scene.instantiate() as Node3D
+	room_templates.add_child(template_instance)
+	template_instance.global_position = room_center
+	template_instance.global_position.y = 0
+
+	# Mark this room as used
+	used_rooms.append(room_index)
+
+	return template_instance

@@ -1,0 +1,63 @@
+[gd_scene load_steps=14 format=3 uid="uid://stm3f7br6bos"]
+
+[ext_resource type="PackedScene" uid="uid://bst8uppbkr2sf" path="res://assets/3D_models/furniture/STFbig_sofa.glb" id="1_c8psm"]
+[ext_resource type="PackedScene" uid="uid://cqt6r666m6vp7" path="res://assets/3D_models/furniture/STFsmall_sofa.glb" id="2_wjqbq"]
+[ext_resource type="PackedScene" uid="uid://bxmi6sde0xbxw" path="res://assets/3D_models/furniture/STFtable.glb" id="3_msu0p"]
+[ext_resource type="PackedScene" uid="uid://q45djqygup02" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_center.glb" id="4_7csjw"]
+[ext_resource type="PackedScene" uid="uid://bjytepbamb0m" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_bl.glb" id="5_vtgvg"]
+[ext_resource type="PackedScene" uid="uid://qixw443846n1" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_br.glb" id="6_2bb4t"]
+[ext_resource type="PackedScene" uid="uid://duvogqn0dhry7" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_fl.glb" id="7_doivu"]
+[ext_resource type="PackedScene" uid="uid://w5mu6fg2f77o" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_fr.glb" id="8_if5mk"]
+[ext_resource type="PackedScene" uid="uid://dwd7kwmgaflre" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_b.glb" id="9_8pt6g"]
+[ext_resource type="PackedScene" uid="uid://dfsg21nf46bbq" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_f.glb" id="10_w4aiv"]
+[ext_resource type="PackedScene" uid="uid://8rg6qpl4hsn4" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_l.glb" id="11_qbt8x"]
+[ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="11_wjqbq"]
+[ext_resource type="PackedScene" uid="uid://vrj2u50mlbjy" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_r.glb" id="12_0u057"]
+
+[node name="living_room_template" type="Node3D"]
+
+[node name="carpet" type="Node3D" parent="."]
+
+[node name="STFcarpet_center2" parent="carpet" instance=ExtResource("4_7csjw")]
+
+[node name="STFcarpet_corner_bl2" parent="carpet" instance=ExtResource("5_vtgvg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="STFcarpet_corner_br2" parent="carpet" instance=ExtResource("6_2bb4t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="STFcarpet_corner_fl2" parent="carpet" instance=ExtResource("7_doivu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="STFcarpet_corner_fr2" parent="carpet" instance=ExtResource("8_if5mk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="STFcarpet_side_b2" parent="carpet" instance=ExtResource("9_8pt6g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="STFcarpet_side_f2" parent="carpet" instance=ExtResource("10_w4aiv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="STFcarpet_side_l2" parent="carpet" instance=ExtResource("11_qbt8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="STFcarpet_side_r2" parent="carpet" instance=ExtResource("12_0u057")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="Prop" parent="." instance=ExtResource("11_wjqbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="STFtable2" parent="Prop" instance=ExtResource("3_msu0p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.06267798)
+
+[node name="Prop2" parent="." instance=ExtResource("11_wjqbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.999013, 0.5, 0)
+
+[node name="STFbig_sofa2" parent="Prop2" instance=ExtResource("1_c8psm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14181745, -0.5, 0.58747053)
+
+[node name="Prop3" parent="." instance=ExtResource("11_wjqbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9982432, 0.5, -1.8306767)
+
+[node name="STFsmall_sofa2" parent="Prop3" instance=ExtResource("2_wjqbq")]
+transform = Transform3D(0.5150381, 0, -0.8571673, 0, 1, 0, 0.8571673, 0, 0.5150381, 0.009824634, -0.44542217, 0.1453625)
