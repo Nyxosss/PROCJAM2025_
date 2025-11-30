@@ -14,7 +14,6 @@ var kitchen : Node3D
 var living_room : Node3D
 var bathroom : Node3D
 var bedroom : Node3D
-#@onready var dun_mesh: Node3D = $"../DunMesh"
 @onready var room_templates: Node3D = $"../RoomTemplates"
 
 func _ready() -> void:

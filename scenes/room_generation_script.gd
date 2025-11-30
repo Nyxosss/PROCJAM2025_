@@ -7,6 +7,8 @@ var grid_map: GridMap = null
 @export var player_path: NodePath
 @onready var room_objects_root := $RoomObjs
 @onready var room_templates: Node3D = $RoomTemplates
+@export var npc_node: Node
+
 
 func get_grid_map() -> GridMap:
 	if grid_map == null:
@@ -133,6 +135,7 @@ func generate():
 	
 	grid_map.hide()
 	spawn_player_in_first_room()
+	spawn_npc_in_rooms()
 
 func make_room(current_room_id:int) -> bool:
 	var height := room_size
@@ -367,6 +370,19 @@ func spawn_player_in_first_room():
 	var center = room_pos[0]
 
 	player.global_position = Vector3(center.x, 1.5, center.z)
+
+func spawn_npc_in_rooms():
+	if room_pos.size() == 0:
+		print("No rooms generated")
+		return
+
+	var player = get_node(player_path)
+	
+	var cur_room = 1
+	for npc in npc_node.get_children():
+		var center = room_pos[cur_room]
+		npc.global_position = Vector3(center.x, 1.5, center.z)
+		cur_room += 1
 
 func world_to_tile(pos: Vector3) -> Vector3i:
 	return Vector3i(int(pos.x), 0, int(pos.z))
