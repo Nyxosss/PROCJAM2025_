@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b14hr86quckjd"]
+[gd_scene load_steps=9 format=3 uid="uid://b14hr86quckjd"]
 
 [ext_resource type="Script" uid="uid://qdd872bkaytm" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="PackedScene" uid="uid://drih0m62p5fdh" path="res://assets/Characters/manprocjam1 running.glb" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://d3315xhmip72q" path="res://assets/Characters/manprocjam 1 idle.glb" id="2_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://bkdmo2tk6hmht" path="res://assets/Characters/manprocjam 2 idle.glb" id="3_fjrip"]
 [ext_resource type="AudioStream" uid="uid://uqtws6e35rf3" path="res://assets/audio/sfx/footsteps.tres" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://bcfuenkw2u6xf" path="res://assets/Characters/manprojam3 idle.glb" id="4_smehm"]
+[ext_resource type="PackedScene" uid="uid://gygygfjqm3pt" path="res://assets/Characters/manprocjam 4 idle.glb" id="5_ur7pv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
@@ -15,8 +18,20 @@ script = ExtResource("1_3vyb7")
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_u8vuu")
 
-[node name="Mesh" parent="." instance=ExtResource("2_g2els")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -1, 0)
+[node name="Mesh1" parent="." instance=ExtResource("2_tuyoq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
+
+[node name="Mesh2" parent="." instance=ExtResource("3_fjrip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
+
+[node name="Mesh3" parent="." instance=ExtResource("4_smehm")]
+visible = false
+
+[node name="Mesh4" parent="." instance=ExtResource("5_ur7pv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
 
 [node name="NpcDetectionArea" type="Area3D" parent="."]
 

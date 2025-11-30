@@ -10,9 +10,10 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var node_3d: Node3D = $".."
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
-@onready var mesh: Node3D = $Mesh
-@onready var mesh_animation_player: AnimationPlayer = $Mesh/AnimationPlayer
+var mesh: Node3D
+var mesh_animation_player: AnimationPlayer
 
+const IDLE_ANIM := preload("res://assets/Characters/animations/idle.res")
 const RUNNING_ANIM := preload("res://assets/Characters/animations/running.res")
 const DYING_ANIM := preload("res://assets/Characters/animations/dying.res")
 
@@ -36,8 +37,28 @@ var max_movement_points := 2
 
 
 func _ready() -> void:
+	match randi_range(1, 4):
+		1:
+			$Mesh1.visible = true
+			mesh = $Mesh1
+			mesh_animation_player = $Mesh1/AnimationPlayer
+		2:
+			$Mesh2.visible = true
+			mesh = $Mesh2
+			mesh_animation_player = $Mesh2/AnimationPlayer
+		3:
+			$Mesh3.visible = true
+			mesh = $Mesh3
+			mesh_animation_player = $Mesh3/AnimationPlayer
+		4:
+			$Mesh4.visible = true
+			mesh = $Mesh4
+			mesh_animation_player = $Mesh4/AnimationPlayer
+
+	mesh_animation_player.get_animation_library("").add_animation(&"idle", IDLE_ANIM)
 	mesh_animation_player.get_animation_library("").add_animation(&"running", RUNNING_ANIM)
 	mesh_animation_player.get_animation_library("").add_animation(&"dying", DYING_ANIM)
+	mesh_animation_player.play(&"idle")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("click") and \
@@ -45,15 +66,18 @@ func _input(event: InputEvent) -> void:
 		select_destination(event)
 
 func _physics_process(delta: float) -> void:
+	if health == 0 and mesh_animation_player.current_animation != &"dying":
+		mesh_animation_player.play(&"dying")
+
+	if end_turn_flag:
+		begin_next_turn_countdown(delta)
+
 	if my_turn and is_moving:
 		move_to_location(delta)
 		
 	if not is_on_floor():
 		velocity.y -= gravity * delta		
 	move_and_slide()
-
-	if end_turn_flag:
-		begin_next_turn_countdown(delta)
 # ------------------------ MOVEMENT ----------------------
 
 func select_destination(event: InputEvent) -> void:
@@ -83,7 +107,6 @@ func select_destination(event: InputEvent) -> void:
 			mesh_animation_player.play(&"running")
 			look_at(intersected_floor_tile.global_position, Vector3.UP, true)
 			rotation.x = 0
-			rotation.y -= PI / 2.0
 		else:
 			print('NOT VALID LOCATION')
 
@@ -105,9 +128,8 @@ func move_to_location(delta: float) -> void:
 			end_turn_flag = true
 		
 func begin_next_turn_countdown(delta: float) -> void:
-	if mesh_animation_player.current_animation != &"RESET":
-		mesh_animation_player.play(&"RESET")
-		rotation.y += PI / 2.0
+	if mesh_animation_player.current_animation != &"idle":
+		mesh_animation_player.play(&"idle")
 
 	end_turn_time -= delta
 	if end_turn_time <= 0.0:
