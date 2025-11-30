@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cs7f75l4qrodw"]
+[gd_scene load_steps=37 format=3 uid="uid://cs7f75l4qrodw"]
 
 [ext_resource type="PackedScene" uid="uid://q45djqygup02" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_center.glb" id="1_1ogt4"]
 [ext_resource type="PackedScene" uid="uid://bjytepbamb0m" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_bl.glb" id="2_gnj23"]
@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://ceo6tnejnwyuf" path="res://assets/3D_models/furniture/STFshelves.glb" id="30_0kjbf"]
 [ext_resource type="PackedScene" uid="uid://dcauwbuo3ih6c" path="res://assets/3D_models/furniture/STFshelves_2.glb" id="31_57ewp"]
 [ext_resource type="PackedScene" uid="uid://dne13caop0p6t" path="res://assets/3D_models/toilet/STFwccloset_2.glb" id="33_p6wke"]
+[ext_resource type="PackedScene" uid="uid://p1iklxwrwmen" path="res://assets/3D_models/toilet/STFloo.glb" id="36_uqigf"]
 
 [node name="AssetTest" type="Node3D"]
 
@@ -182,6 +183,9 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3, 0
 
 [node name="STFwccloset_22" parent="WC" instance=ExtResource("33_p6wke")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4, 0, -2)
+
+[node name="STFloo2" parent="." instance=ExtResource("36_uqigf")]
+transform = Transform3D(0, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 0, 2, 0, -2)
 
 [editable path="room_tiles/STFdoor_frame3"]
 [editable path="room_tiles/STFfloor_tile2"]

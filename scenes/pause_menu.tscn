@@ -6,7 +6,6 @@
 font_size = 32
 
 [node name="PauseMenu" type="Control"]
-process_mode = 3
 top_level = true
 layout_mode = 3
 anchors_preset = 15
@@ -65,7 +64,7 @@ text = "Options"
 
 [node name="QuitButton" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Quit"
+text = "Quit to Menu"
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]

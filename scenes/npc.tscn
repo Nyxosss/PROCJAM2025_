@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca3bh0jpl15fv"]
+[gd_scene load_steps=6 format=3 uid="uid://ca3bh0jpl15fv"]
 
 [ext_resource type="Script" uid="uid://ccewcatq53ufn" path="res://scripts/npc.gd" id="1_nh2m4"]
+[ext_resource type="AudioStream" uid="uid://d8wple1u0wg5" path="res://assets/audio/sfx/murder_guy.wav" id="2_abqhh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tcuxl"]
 
@@ -23,3 +24,6 @@ shape = SubResource("CapsuleShape3D_tcuxl")
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_nh2m4")
 skeleton = NodePath("../..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_abqhh")

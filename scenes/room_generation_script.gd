@@ -5,7 +5,10 @@ var grid_map: GridMap = null
 @export var dun_mesh_path : NodePath
 @onready var dun_mesh : Node3D = get_node(dun_mesh_path)
 @export var player_path: NodePath
-@onready var room_objects_root := $RoomObjs
+#@onready var room_objects_root := $RoomObjs
+@onready var room_templates: Node3D = $RoomTemplates
+@export var npc_node: Node
+
 
 func get_grid_map() -> GridMap:
 	if grid_map == null:
@@ -20,17 +23,35 @@ var last_player_room_id := -1
 
 func _ready():
 	if not Engine.is_editor_hint():
-		generate()
+		for attempt in range(10):
+			generate()
+
+			if room_pos.size() == room_amount:
+				print("Dungeon generated successfully in attempt ", attempt+1)
+				return
 
 func set_start(val: bool) -> void:
-	generate()
+	for attempt in range(10):
+		generate()
+
+		if room_pos.size() == room_amount:
+			print("Dungeon generated successfully in attempt ", attempt+1)
+			return
 
 @export var border_size : int = 25 : set = set_border_size
 @export var room_size : int = 7
 @export var room_amount: int = 5
 @export var room_margin: int = 0
 @export var room_object_scene: PackedScene
-var room_objects := {}  # room_id → spawned object
+@export var bedroom_template: PackedScene
+@export var bathroom_template: PackedScene
+@export var kitchen_template: PackedScene
+@export var living_room_template: PackedScene
+@onready var error_label: Label = $CanvasLayer/ErrorLabel
+var used_rooms := []
+
+#var room_objects := {}  # room_id → spawned object
+var room_templates_id := {}
 var tile_to_room_id := {}
 var tile_to_door_id := {}
 
@@ -70,26 +91,33 @@ func visualize_border():
 		grid_map.set_cell_item(Vector3i(-1,0,i),0)
 
 func generate():
-	for c in room_objects_root.get_children():
+	#for c in room_objects_root.get_children():
+		#c.queue_free()
+	for c in room_templates.get_children():
 		c.queue_free()
-	room_objects.clear()
+	#room_objects.clear()
+	room_templates_id.clear()
+	used_rooms.clear()
 	room_tiles.clear()
 	room_pos.clear()
 	visualize_border()
+	
 	var current_room_id = 1
 	for i in range(room_amount):
-		make_room(current_room_id)
+		var room_error = make_room(current_room_id)
+		#if !room_error:
+			#error_label.visible = true
 		current_room_id += 1
 
-	var half_size = int(room_size / 2)  # 3
-	var center = room_pos[0]
-	var door_tile = Vector3i(
-		int(center.x) + first_room_reserved_dir.x * half_size,
-		0,
-		int(center.z) + first_room_reserved_dir.z * half_size
-	)
-	grid_map.set_cell_item(door_tile, 2)  # 2 = door
-	tile_to_door_id[door_tile] = current_door_id
+	#var half_size = int(room_size / 2)  # 3
+	#var center = room_pos[0]
+	#var door_tile = Vector3i(
+		#int(center.x) + first_room_reserved_dir.x * half_size,
+		#0,
+		#int(center.z) + first_room_reserved_dir.z * half_size
+	#)
+	#grid_map.set_cell_item(door_tile, 2)  # 2 = door
+	#tile_to_door_id[door_tile] = current_door_id
 
 	#var first_room_center = room_pos[0]
 	#var door_pos = Vector3i(first_room_center) + first_room_reserved_dir * -3
@@ -115,9 +143,15 @@ func generate():
 	dun_mesh.create_dungeon()
 	# After dun_mesh creates the dungeon, pull out the dun_cell instances
 	room_nodes = dun_mesh.room_nodes
-	spawn_room_objects()
+	#spawn_room_objects()
+	place_template_in_random_room(bedroom_template)
+	place_template_in_random_room(bathroom_template)
+	place_template_in_random_room(kitchen_template)
+	place_template_in_random_room(living_room_template)
+	
 	grid_map.hide()
 	spawn_player_in_first_room()
+	spawn_npc_in_rooms()
 
 func make_room(current_room_id:int) -> bool:
 	var height := room_size
@@ -171,11 +205,27 @@ func make_room(current_room_id:int) -> bool:
 		# Place room
 		place_room(start_pos, width, height, current_room_id)
 		
+		#####TIREI MAS TESTAAAA
 		#doors
-		grid_map.set_cell_item(base,2)
-		grid_map.set_cell_item(base+dir,2)
+		var previous_room = room_tiles[current_room_id - 1]
+
+		# Adjust base if needed
+		var adjusted_base = adjust_door_if_center(base, previous_room)
+
+		# Place door using adjusted_base
+		grid_map.set_cell_item(adjusted_base, 2)
+		grid_map.set_cell_item(Vector3(adjusted_base) + dir, 2)
+
+		tile_to_door_id[adjusted_base] = current_door_id
+		tile_to_door_id[Vector3(adjusted_base) + dir] = current_door_id
+		
+		grid_map.set_cell_item(adjusted_base,2)
+		grid_map.set_cell_item(Vector3(adjusted_base)+dir,2)
 		tile_to_door_id[Vector3i(base)] = current_door_id
 		tile_to_door_id[Vector3i(base + dir)] = current_door_id
+		#######
+		
+		
 		#tile_to_door_id[base] = current_door_id
 		#tile_to_door_id[base+dir] = current_door_id
 		#print("PLACED DOOR at ", base, " and ", base+dir, " ID=", current_door_id)
@@ -183,6 +233,48 @@ func make_room(current_room_id:int) -> bool:
 		return true
 
 	return false
+
+func adjust_door_if_center(base: Vector3i, room: Array) -> Vector3i:
+	# Extract min/max
+	var xs := []
+	var zs := []
+	for t in room:
+		xs.append(t.x)
+		zs.append(t.z)
+
+	var min_x = xs.min()
+	var max_x = xs.max()
+	var min_z = zs.min()
+	var max_z = zs.max()
+
+	var center_x = (min_x + max_x) / 2.0
+	var center_z = (min_z + max_z) / 2.0
+
+	# --- NORTH wall (z = max_z)
+	if base.z == max_z:
+		if base.x == center_x:
+			return Vector3i(base.x + 2, base.y, base.z) # move right along X
+		return base
+
+	# --- SOUTH wall (z = min_z)
+	if base.z == min_z:
+		if base.x == center_x:
+			return Vector3i(base.x + 2, base.y, base.z)
+		return base
+
+	# --- EAST wall (x = max_x)
+	if base.x == max_x:
+		if base.z == center_z:
+			return Vector3i(base.x, base.y, base.z + 2) # move right along Z
+		return base
+
+	# --- WEST wall (x = min_x)
+	if base.x == min_x:
+		if base.z == center_z:
+			return Vector3i(base.x, base.y, base.z + 2)
+		return base
+
+	return base
 
 
 func place_first_room() -> bool:
@@ -295,6 +387,19 @@ func spawn_player_in_first_room():
 
 	player.global_position = Vector3(center.x, 1.5, center.z)
 
+func spawn_npc_in_rooms():
+	if room_pos.size() == 0:
+		print("No rooms generated")
+		return
+
+	var player = get_node(player_path)
+	
+	var cur_room = 1
+	for npc in npc_node.get_children():
+		var center = room_pos[cur_room]
+		npc.global_position = Vector3(center.x, 1.5, center.z)
+		cur_room += 1
+
 func world_to_tile(pos: Vector3) -> Vector3i:
 	return Vector3i(int(pos.x), 0, int(pos.z))
 
@@ -320,99 +425,34 @@ func _update_room_visibility(current_room_id: int) -> void:
 		var visible = (id == current_room_id)
 		for node in room_nodes[id]:
 			node.visible = visible
-	for id in room_objects.keys():
-		room_objects[id].visible = (id == current_room_id)
-		
-#func spawn_room_objects():
-	#for i in range(room_tiles.size()):
-		#var room_id := i + 1
-		#var tiles := room_tiles[i]
-#
-		#if tiles.size() == 0:
-			#continue
-#
-		#
-		## Pick a random tile inside the room
-		#var tile := tiles[randi() % tiles.size()]
-		#
-		#var world_pos := Vector3(tile.x + 0.5, 0, tile.z + 0.5)
-#
-		#var obj := room_object_scene.instantiate()
-		#room_objects_root.add_child(obj)
-		#obj.global_position = world_pos
-		#room_objects[room_id] = obj
+	for id in room_templates_id.keys():
+		room_templates_id[id].visible = (id == current_room_id)
 
-#func spawn_room_objects():
-	#for i in range(room_tiles.size()):
-		#var room_id = i + 1
-		#var tiles := room_tiles[i]
-#
-		## Skip empty rooms
-		#if tiles.size() == 0:
-			#continue
-#
-		## Filter out tiles that are doors
-		#var valid_tiles = []
-		#for tile in tiles:
-			#if not tile_to_door_id.has(tile):
-				#valid_tiles.append(tile)
-#
-		## If no valid tiles, just skip this room
-		#if valid_tiles.size() == 0:
-			#continue
-#
-		## Pick a random tile from the remaining ones
-		#var tile = valid_tiles[randi() % valid_tiles.size()]
-		#var world_pos := Vector3(tile.x + 0.5, 0, tile.z + 0.5)
-#
-		#var obj := room_object_scene.instantiate()
-		#room_objects_root.add_child(obj)
-		#obj.global_position = world_pos
+func place_template_in_random_room(template_scene: PackedScene) -> Node3D:
+	if room_tiles.size() <= 1:
+		return null  # no room available except the first one
 
-func spawn_room_objects():
-	if room_object_scene == null:
-		return  # nothing to spawn
+	# Build a list of available rooms (excluding first and already used)
+	var available_rooms := []
+	for i in range(1, room_tiles.size()):
+		if not i in used_rooms:
+			available_rooms.append(i)
 
-	var neighbor_dirs := [
-		Vector3i(0,0,0), Vector3i(1,0,0), Vector3i(-1,0,0),
-		Vector3i(0,0,1), Vector3i(0,0,-1)
-	]
-	
-	# Clear previous objects
-	for c in room_objects_root.get_children():
-		c.queue_free()
-	room_objects.clear()
+	if available_rooms.size() == 0:
+		return null  # no rooms left
 
-	for i in range(room_tiles.size()):
-		var room_id := i + 1
-		var tiles := room_tiles[i]
-		if tiles.size() == 0:
-			continue
+	# Pick a random available room
+	var room_index = available_rooms[randi() % available_rooms.size()]
+	var room_center = room_pos[room_index]
 
-		# Filter out tiles that are doors or adjacent to doors
-		var valid_tiles := []
-		for tile in tiles:
-			var near_door := false
-			if tile_to_door_id.has(tile):
-				near_door = true
-			for dir in neighbor_dirs:
-				if tile_to_door_id.has(Vector3i(tile) + dir):
-					near_door = true
-					break
-			if not near_door:
-				valid_tiles.append(tile)
+	# Instance the template
+	var template_instance = template_scene.instantiate() as Node3D
+	room_templates.add_child(template_instance)
+	template_instance.global_position = room_center
+	template_instance.global_position.y = 0
 
-		if valid_tiles.size() == 0:
-			continue
-
-		# Pick a random tile
-		var tile = valid_tiles[randi() % valid_tiles.size()]
-		var world_pos = tile + Vector3(0.5, 0.5, 0.5)
-
-		# Instance the object and add it to the container
-		var obj := room_object_scene.instantiate()
-		room_objects_root.add_child(obj)
-		obj.global_position = world_pos
-
-		# Store reference
-		room_objects[room_id] = obj
+	# Mark this room as used
+	used_rooms.append(room_index)
+	#var room_id = tile_to_room_id.get(room_center, -1)
+	room_templates_id[room_index + 1] = template_instance
+	return template_instance

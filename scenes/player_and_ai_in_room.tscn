@@ -1,16 +1,30 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckjk3toq4y5an"]
+[gd_scene load_steps=16 format=3 uid="uid://ckjk3toq4y5an"]
 
 [ext_resource type="Script" uid="uid://draefwoe08fe3" path="res://scenes/room_generation_script.gd" id="1_rfjwp"]
 [ext_resource type="MeshLibrary" uid="uid://baficpor5545n" path="res://room_mesh.tres" id="2_qecvw"]
+[ext_resource type="PackedScene" uid="uid://bki2o5krs61cg" path="res://scenes/room_tiles.tscn" id="2_st7ia"]
+[ext_resource type="PackedScene" uid="uid://cd45xjwltptrf" path="res://scenes/bedroom_template.tscn" id="2_xnd2v"]
 [ext_resource type="Script" uid="uid://12jt1y88x5q8" path="res://grid_map.gd" id="3_20dc2"]
+[ext_resource type="PackedScene" uid="uid://dnudlaug11rd0" path="res://scenes/bathroom_template.tscn" id="3_nxxvl"]
 [ext_resource type="PackedScene" uid="uid://b14hr86quckjd" path="res://scenes/player.tscn" id="3_ryyyr"]
 [ext_resource type="PackedScene" uid="uid://ca3bh0jpl15fv" path="res://scenes/npc.tscn" id="4_20dc2"]
+[ext_resource type="PackedScene" uid="uid://b8ymnsdb2pyfe" path="res://scenes/kitchen_template.tscn" id="4_st7ia"]
 [ext_resource type="Script" uid="uid://bs3vtubjkb06l" path="res://scripts/camera.gd" id="5_23gcg"]
 [ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="5_dstfh"]
+[ext_resource type="PackedScene" uid="uid://stm3f7br6bos" path="res://scenes/living_room_template.tscn" id="5_n1nnq"]
 [ext_resource type="Script" uid="uid://cw32bmtbk6m3d" path="res://scripts/turn_manager.gd" id="8_23gcg"]
+[ext_resource type="Script" uid="uid://b0c8tlw4jtibp" path="res://scenes/dun_mesh.gd" id="13_mpftx"]
+[ext_resource type="PackedScene" uid="uid://c5y4c5v1mu8qm" path="res://scenes/pause_menu.tscn" id="15_st7ia"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_rfjwp")
+dun_mesh_path = NodePath("DunMesh")
+player_path = NodePath("Player")
+room_object_scene = ExtResource("2_st7ia")
+bedroom_template = ExtResource("2_xnd2v")
+bathroom_template = ExtResource("3_nxxvl")
+kitchen_template = ExtResource("4_st7ia")
+living_room_template = ExtResource("5_n1nnq")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("2_qecvw")
@@ -21,11 +35,12 @@ data = {
 script = ExtResource("3_20dc2")
 metadata/_editor_floor_ = Vector3(0, 8, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(0.7071068, -0.35355338, 0.61237246, 0, 0.8660254, 0.50000006, -0.7071068, -0.35355338, 0.61237246, 17.582, 9.108, 13.094)
 projection = 1
 size = 14.09
 script = ExtResource("5_23gcg")
+player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_ryyyr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.252199, 2.4226575, 9.3792925)
@@ -53,6 +68,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.892207, 1.5783052, 3.65882
 [node name="TurnManager" type="Node" parent="."]
 script = ExtResource("8_23gcg")
 
+[node name="DunMesh" type="Node3D" parent="."]
+script = ExtResource("13_mpftx")
+grid_map_path = NodePath("../GridMap")
+
+[node name="RoomObjs" type="Node3D" parent="."]
+
+[node name="RoomTemplates" type="Node3D" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TurnLabel" type="Label" parent="CanvasLayer"]
@@ -60,3 +83,23 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "PLAYER TURN"
 metadata/_edit_use_anchors_ = true
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+horizontal_alignment = 1
+
+[node name="NpcNumLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
+[node name="PauseMenu" parent="." instance=ExtResource("15_st7ia")]

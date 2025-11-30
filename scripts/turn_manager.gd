@@ -9,9 +9,33 @@ var npcs: Array[Npc]
 @onready var turn_label: Label = $"../CanvasLayer/TurnLabel"
 @onready var health_label: Label = $"../CanvasLayer/HealthLabel"
 @onready var npc_num_label: Label = $"../CanvasLayer/NpcNumLabel"
+@onready var npc_close_label: Label = $"../CanvasLayer/NpcCloseLabel"
+
+var kitchen : Node3D 
+var living_room : Node3D
+var bathroom : Node3D
+var bedroom : Node3D
+@onready var room_templates: Node3D = $"../RoomTemplates"
 
 func _ready() -> void:
+	await wait_for_children()
+	kitchen = $"../RoomTemplates/kitchen_template"
+	living_room = $"../RoomTemplates/living_room_template"
+	bathroom = $"../RoomTemplates/bathroom_template"
+	bedroom = $"../RoomTemplates/BedroomTemplate"
 	add_player_and_npcs()
+	for npc in npc_node.get_children():
+		npc.died.connect(_on_npc_died)
+
+func _on_npc_died(npc: Npc) -> void:
+	print("npc morreu")
+	npcs.erase(npc)
+	if npcs.size() <= 0:
+		end_game_win()
+
+func wait_for_children() -> void:
+	while room_templates.get_child_count() != 4:
+		await get_tree().process_frame
 
 #VERY INEFFICIENT BUT WORKS
 func _physics_process(delta: float) -> void:
@@ -19,12 +43,20 @@ func _physics_process(delta: float) -> void:
 		now_its_npcs_turn()
 	if player != null and player.my_turn and not turn_flag:
 		if all_npcs_done():
+			var same_room_npcs = count_npcs_in_same_room()
+			if same_room_npcs == 0:
+				npc_close_label.text = "The room is very cold, no one is near"
+			elif same_room_npcs > 0 and same_room_npcs < npcs.size():
+				npc_close_label.text = "The room is warm, someone might be around"
+			else:
+				npc_close_label.text = "The room very hot, they are all here"
 			now_its_players_turn()
 	
 	if player != null:
 		health_label.text = "PLAYER HP: " + str(player.health)
-	if npcs.size() > 0:
-		npc_num_label.text = "NPCS LEFT: " + str(npcs.size())
+	if player.health <= 0:
+		end_game_lose()
+	npc_num_label.text = "NPCS LEFT: " + str(npcs.size())
 # ----------------------------------------------
 
 func add_player_and_npcs() -> void:
@@ -32,10 +64,7 @@ func add_player_and_npcs() -> void:
 		npcs.append(npc)
 		if player != null:
 			npc.player = player
-	for child in owner.get_children():
-		if child is Prop:
-			for npc: Npc in npcs:
-				npc.prop_list.append(child)
+	set_all_props()
 	
 func all_npcs_done() -> bool:
 	#FILTER OUT REMOVED NPCS
@@ -47,12 +76,16 @@ func all_npcs_done() -> bool:
 			break
 	if all_npcs_ended:
 		player.my_turn = true
-	print('ARE ALL NPCS DONE? ', all_npcs_ended)
+	#print('ARE ALL NPCS DONE? ', all_npcs_ended)
 	return all_npcs_ended
 
 func now_its_players_turn() -> void:
-	for npc: Npc in npcs:
-		npc.my_turn = false
+	#npcs = npcs.filter(is_instance_valid)
+	for npc in npcs:
+		if is_instance_valid(npc):
+			npc.my_turn = false
+	#for npc: Npc in npcs:
+		#npc.my_turn = false
 	print('PLAYER TURN')
 	turn_label.text = "PLAYER TURN"
 	player.my_turn = true
@@ -60,7 +93,10 @@ func now_its_players_turn() -> void:
 
 func now_its_npcs_turn() -> void:
 	for npc: Npc in npcs:
-		npc.my_turn = true
+		if is_instance_valid(npc):
+			npc.my_turn = true
+		else:
+			continue
 		npc.is_moving = true
 		npc.select_prop_flag = true
 		if not npc.axis_lock_linear_y:
@@ -70,3 +106,46 @@ func now_its_npcs_turn() -> void:
 	print('NPCS TURN')
 	turn_label.text = "NPC TURN"
 	turn_flag = false
+
+func set_all_props():
+	for child in bedroom.get_children():
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
+	for child in living_room.get_children():
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
+	for child in bathroom.get_children():
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
+	for child in kitchen.get_children():
+		if child is Prop:
+			for npc: Npc in npcs:
+				npc.prop_list.append(child)
+
+func end_game_win():
+	print("PLAYER WIIIINS")
+	get_tree().change_scene_to_file("res://scenes/win_screen.tscn")
+
+	
+func end_game_lose():
+	print("PLAYER LOOOOOOSE")
+	get_tree().change_scene_to_file("res://scenes/loose_screen.tscn")
+
+
+func count_npcs_in_same_room() -> int:
+	var node_3d: Node3D = $".."
+	var player_room_id = node_3d.get_player_room_id(player.global_position)
+	var count = 0
+	print("player room id: " + str(player_room_id))
+	for npc in npcs:
+		if is_instance_valid(npc):
+			var tile = node_3d.world_to_tile(npc.global_position)
+			var npc_room_id = node_3d.tile_to_room_id.get(tile, -1)
+			print("npc in room: "+ str(npc_room_id))
+			if npc_room_id == player_room_id and npc.is_hiding:
+				count += 1
+	print(count)
+	return count

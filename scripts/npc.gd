@@ -11,6 +11,9 @@ var behavior_weights: Dictionary = {
 }
 var behavior_choice_array: Array[Behavior]
 
+const SFX_MURDER_GUY := preload("res://assets/audio/sfx/murder_guy.wav")
+const SFX_MURDER_GIRL := preload("res://assets/audio/sfx/murder_girl.wav")
+
 #PROP LOGIC
 var current_prop: Prop
 var destination_prop: Prop
@@ -27,11 +30,15 @@ var my_turn: bool = false
 #
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var mesh: MeshInstance3D = $Mesh
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+var current_room_id : int
 
+signal died(npc)
 
 func _ready() -> void:
 	mesh.hide()
 	assign_random_personality()
+	current_room_id = get_my_room_id()
 
 func _process(delta: float) -> void:
 	pass
@@ -68,6 +75,7 @@ func define_behavior_weights() -> void:
 
 func select_random_destination_prop() -> void:
 	if prop_list.size() > 0:
+		print("hello")
 		var random_prop: Prop = prop_list[randi_range(0, prop_list.size()-1)]
 		print('RANDOM PROP SELECTED: ', random_prop)
 		
@@ -95,6 +103,7 @@ func hide_behind_prop(delta: float) -> void:
 			is_moving = false
 			my_turn = false
 			player.my_turn = true
+	current_room_id = get_my_room_id()
 
 # ------------------------- ACTIONS -------------------------
 
@@ -112,6 +121,7 @@ func trigger_behavior() -> void:
 			attack_and_run(get_physics_process_delta_time())
 	
 func fill_behavior_choice_array() -> void:
+	behavior_choice_array.clear()
 	var max_size: int = 20
 	var die_amount: int = max_size * behavior_weights[Behavior.DIE]
 	var atk_run_amount: int = max_size * behavior_weights[Behavior.ATK_RUN_AWAY]
@@ -122,6 +132,10 @@ func fill_behavior_choice_array() -> void:
 	print('BEHAVIOR CHOICE ARRAY: ', behavior_choice_array)
 	
 func die() -> void:
+	#get_parent().call_deferred("remove_child", self)
+	audio_stream_player.stream = SFX_MURDER_GUY if randi_range(false, true) else SFX_MURDER_GIRL
+	audio_stream_player.play()
+	emit_signal("died", self)
 	queue_free()
 
 func attack_and_run(delta: float) -> void:
@@ -134,3 +148,10 @@ func attack(player: Player) -> void:
 func run(delta: float) -> void:
 	select_random_destination_prop()
 	hide_behind_prop(delta)
+
+func get_my_room_id() -> int:
+	var node_3d: Node3D = $"../.."
+	var tile = node_3d.world_to_tile(global_position)
+	if node_3d.tile_to_room_id.has(tile):
+		return node_3d.tile_to_room_id[tile]
+	return -1

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8ymnsdb2pyfe"]
+
+[ext_resource type="PackedScene" uid="uid://bh0gxb4lng25d" path="res://assets/3D_models/furniture/kitchen/STFcoking_closet_2.glb" id="1_fnmbu"]
+[ext_resource type="PackedScene" uid="uid://cp8soaqq2qcsq" path="res://assets/3D_models/furniture/kitchen/STFcoking_closet.glb" id="2_hbett"]
+[ext_resource type="PackedScene" uid="uid://ks7yf6y1xjjj" path="res://assets/3D_models/furniture/kitchen/STFdish_wash.glb" id="3_ctogc"]
+[ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="3_hbett"]
+[ext_resource type="PackedScene" uid="uid://dysikck7jse2" path="res://assets/3D_models/furniture/kitchen/STFwashing_machine.glb" id="4_qxfqp"]
+
+[node name="kitchen_template" type="Node3D"]
+
+[node name="Prop" parent="." instance=ExtResource("3_hbett")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9467158, 0.5, 0)
+
+[node name="STFcoking_closet_22" parent="Prop" instance=ExtResource("1_fnmbu")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.007323742, -0.5, 0)
+
+[node name="Prop2" parent="." instance=ExtResource("3_hbett")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2.9062243)
+
+[node name="STFwashing_machine2" parent="Prop2" instance=ExtResource("4_qxfqp")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.5, 0.0017142296)
+
+[node name="Prop3" parent="." instance=ExtResource("3_hbett")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.93893)
+
+[node name="STFdish_wash2" parent="Prop3" instance=ExtResource("3_ctogc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.5, 0.010547638)
+
+[node name="Prop4" parent="." instance=ExtResource("3_hbett")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9727879, 0.5, 0)
+
+[node name="STFcoking_closet2" parent="Prop4" instance=ExtResource("2_hbett")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007892132, -0.5, 0)
