@@ -143,6 +143,11 @@ shape = SubResource("BoxShape3D_5tub5")
 [node name="STFshelves_22" parent="Prop" instance=ExtResource("4_868k3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.02764225)
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_color = Color(0.9999998, 0.94605166, 0.899016, 1)
+light_energy = 2.505
+
 [editable path="Prop3"]
 [editable path="Prop4"]
 [editable path="Prop"]

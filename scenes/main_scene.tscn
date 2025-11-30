@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dudf1qmatkdw4"]
+[gd_scene load_steps=16 format=3 uid="uid://dudf1qmatkdw4"]
 
 [ext_resource type="Script" uid="uid://draefwoe08fe3" path="res://scenes/room_generation_script.gd" id="1_si52b"]
 [ext_resource type="PackedScene" uid="uid://bki2o5krs61cg" path="res://scenes/room_tiles.tscn" id="2_01n6w"]
 [ext_resource type="PackedScene" uid="uid://cd45xjwltptrf" path="res://scenes/bedroom_template.tscn" id="3_6u1mn"]
-[ext_resource type="PackedScene" path="res://scenes/bathroom_template.tscn" id="4_bcnxi"]
-[ext_resource type="PackedScene" path="res://scenes/kitchen_template.tscn" id="5_7nt27"]
+[ext_resource type="PackedScene" uid="uid://dnudlaug11rd0" path="res://scenes/bathroom_template.tscn" id="4_bcnxi"]
+[ext_resource type="PackedScene" uid="uid://b8ymnsdb2pyfe" path="res://scenes/kitchen_template.tscn" id="5_7nt27"]
 [ext_resource type="PackedScene" uid="uid://stm3f7br6bos" path="res://scenes/living_room_template.tscn" id="6_k6f3i"]
 [ext_resource type="MeshLibrary" uid="uid://baficpor5545n" path="res://room_mesh.tres" id="7_xdqt8"]
 [ext_resource type="Script" uid="uid://bs3vtubjkb06l" path="res://scripts/camera.gd" id="9_58gk3"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://dxn6mafr76lv4" path="res://scripts/pause.gd" id="13_r6p65"]
 [ext_resource type="Script" uid="uid://b0c8tlw4jtibp" path="res://scenes/dun_mesh.gd" id="14_k3g67"]
 [ext_resource type="AudioStream" uid="uid://c4lyd8i3m2ebe" path="res://assets/audio/music/gameplay_audio.mp3" id="14_si52b"]
+[ext_resource type="PackedScene" uid="uid://vyt2yb3jrugc" path="res://assets/3D_models/STFsnow_terrain.glb" id="15_si52b"]
 
 [node name="Node3D" type="Node3D" node_paths=PackedStringArray("npc_node")]
 script = ExtResource("1_si52b")
@@ -627,3 +628,29 @@ bus = &"Music"
 [node name="Pause" type="Node" parent="."]
 script = ExtResource("13_r6p65")
 metadata/_custom_type_script = "uid://dxn6mafr76lv4"
+
+[node name="STFsnow_terrain2" parent="." instance=ExtResource("15_si52b")]
+
+[node name="STFsnow_terrain4" parent="." instance=ExtResource("15_si52b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -40, 0, 0)
+
+[node name="STFsnow_terrain8" parent="." instance=ExtResource("15_si52b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -40, 0, 39.999996)
+
+[node name="STFsnow_terrain10" parent="." instance=ExtResource("15_si52b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.8146973e-06, 0, 40)
+
+[node name="STFsnow_terrain9" parent="." instance=ExtResource("15_si52b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 40, 0, 40)
+
+[node name="STFsnow_terrain3" parent="." instance=ExtResource("15_si52b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 40, 0, 0)
+
+[node name="STFsnow_terrain12" parent="." instance=ExtResource("15_si52b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.8146973e-06, 0, -40)
+
+[node name="STFsnow_terrain13" parent="." instance=ExtResource("15_si52b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -40, 0, -40.000004)
+
+[node name="STFsnow_terrain11" parent="." instance=ExtResource("15_si52b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 40, 0, -40)
