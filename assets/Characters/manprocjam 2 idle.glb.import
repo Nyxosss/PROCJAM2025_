@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c5dv04x8ekuve"
+uid="uid://bkdmo2tk6hmht"
 path="res://.godot/imported/manprocjam 2 idle.glb-5db7d13f7bd888daf76d9a121790da71.scn"
 
 [deps]
@@ -17,8 +17,8 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
-nodes/import_as_skeleton_bones=false
+nodes/root_scale=0.25
+nodes/import_as_skeleton_bones=true
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
