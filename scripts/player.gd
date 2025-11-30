@@ -11,9 +11,6 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
-
 var my_turn: bool = true
 var health: int = 10
 var is_moving: bool = false
@@ -21,7 +18,7 @@ var prop_being_observed: Prop
 
 var destination_tiles: Array = []
 var destination_tile_pos: Vector3
-var tile_radius: float = 2.0
+var tile_radius: float = 4.0
 
 var end_turn_flag: bool = false
 var end_turn_time: float = 1.0

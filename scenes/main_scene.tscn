@@ -593,5 +593,11 @@ offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
 
+[node name="NpcCloseLabel" type="Label" parent="CanvasLayer"]
+offset_top = 30.0
+offset_right = 309.0
+offset_bottom = 52.0
+text = "The room is very cold, no one is near"
+
 [node name="PauseMenu" parent="." instance=ExtResource("13_4w45t")]
 visible = false

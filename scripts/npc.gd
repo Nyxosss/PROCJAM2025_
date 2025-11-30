@@ -28,11 +28,14 @@ var my_turn: bool = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var mesh: MeshInstance3D = $Mesh
 
+var current_room_id : int
+
 signal died(npc)
 
 func _ready() -> void:
 	mesh.hide()
 	assign_random_personality()
+	current_room_id = get_my_room_id()
 
 func _process(delta: float) -> void:
 	pass
@@ -97,6 +100,7 @@ func hide_behind_prop(delta: float) -> void:
 			is_moving = false
 			my_turn = false
 			player.my_turn = true
+	current_room_id = get_my_room_id()
 
 # ------------------------- ACTIONS -------------------------
 
@@ -139,3 +143,10 @@ func attack(player: Player) -> void:
 func run(delta: float) -> void:
 	select_random_destination_prop()
 	hide_behind_prop(delta)
+
+func get_my_room_id() -> int:
+	var node_3d: Node3D = $"../.."
+	var tile = node_3d.world_to_tile(global_position)
+	if node_3d.tile_to_room_id.has(tile):
+		return node_3d.tile_to_room_id[tile]
+	return -1

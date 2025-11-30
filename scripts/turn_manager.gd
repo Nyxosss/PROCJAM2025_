@@ -9,6 +9,7 @@ var npcs: Array[Npc]
 @onready var turn_label: Label = $"../CanvasLayer/TurnLabel"
 @onready var health_label: Label = $"../CanvasLayer/HealthLabel"
 @onready var npc_num_label: Label = $"../CanvasLayer/NpcNumLabel"
+@onready var npc_close_label: Label = $"../CanvasLayer/NpcCloseLabel"
 
 var kitchen : Node3D 
 var living_room : Node3D
@@ -42,6 +43,13 @@ func _physics_process(delta: float) -> void:
 		now_its_npcs_turn()
 	if player != null and player.my_turn and not turn_flag:
 		if all_npcs_done():
+			var same_room_npcs = count_npcs_in_same_room()
+			if same_room_npcs == 0:
+				npc_close_label.text = "The room is very cold, no one is near"
+			elif same_room_npcs > 0 and same_room_npcs < npcs.size():
+				npc_close_label.text = "The room is warm, someone might be around"
+			else:
+				npc_close_label.text = "The room very hot, they are all here"
 			now_its_players_turn()
 	
 	if player != null:
@@ -127,3 +135,19 @@ func end_game_lose():
 	print("PLAYER LOOOOOOSE")
 	var pause_menu: PauseMenu = $"../PauseMenu"
 	pause_menu.visible = true
+
+
+func count_npcs_in_same_room() -> int:
+	var node_3d: Node3D = $".."
+	var player_room_id = node_3d.get_player_room_id(player.global_position)
+	var count = 0
+	print("player room id: " + str(player_room_id))
+	for npc in npcs:
+		if is_instance_valid(npc):
+			var tile = node_3d.world_to_tile(npc.global_position)
+			var npc_room_id = node_3d.tile_to_room_id.get(tile, -1)
+			print("npc in room: "+ str(npc_room_id))
+			if npc_room_id == player_room_id and npc.is_hiding:
+				count += 1
+	print(count)
+	return count
