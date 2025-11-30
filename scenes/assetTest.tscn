@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cs7f75l4qrodw"]
+[gd_scene load_steps=36 format=3 uid="uid://cs7f75l4qrodw"]
 
 [ext_resource type="PackedScene" uid="uid://q45djqygup02" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_center.glb" id="1_1ogt4"]
 [ext_resource type="PackedScene" uid="uid://bjytepbamb0m" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_corner_bl.glb" id="2_gnj23"]
@@ -12,11 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://cp025smy8b2rn" path="res://assets/3D_models/wall_tiles/STFwall.glb" id="10_mqtf0"]
 [ext_resource type="PackedScene" uid="uid://da5wi5fwlvab4" path="res://assets/3D_models/wall_tiles/STFdoor_frame.glb" id="11_d6qyx"]
 [ext_resource type="PackedScene" uid="uid://dsimjfre5e0yw" path="res://assets/3D_models/wall_tiles/STFfloor_tile.glb" id="12_1sbf2"]
+[ext_resource type="Material" uid="uid://xc4b8b8034hr" path="res://assets/materials/exclusive_materials/wall3_shader_material.tres" id="12_p6wke"]
 [ext_resource type="PackedScene" uid="uid://rqfufeqf4wg6" path="res://assets/3D_models/wall_tiles/STFdoor.glb" id="13_1sbf2"]
 [ext_resource type="PackedScene" uid="uid://dq5r1856ajmv4" path="res://assets/3D_models/wall_tiles/STFwindow.glb" id="13_ar3pi"]
 [ext_resource type="PackedScene" uid="uid://bxmi6sde0xbxw" path="res://assets/3D_models/furniture/STFtable.glb" id="13_u0gvb"]
 [ext_resource type="PackedScene" uid="uid://dnau10m0hjvjv" path="res://assets/3D_models/wall_tiles/STFdoor_half.glb" id="14_3d6v5"]
 [ext_resource type="PackedScene" uid="uid://d0sr6x5x3i61b" path="res://assets/3D_models/furniture/STFbedside_table.glb" id="14_r7yga"]
+[ext_resource type="Material" uid="uid://bid0m7tu2eb76" path="res://assets/materials/exclusive_materials/floor2_shader_material.tres" id="14_uqigf"]
 [ext_resource type="PackedScene" uid="uid://chnkrc5ave8nh" path="res://assets/3D_models/furniture/STFbed.glb" id="15_mr4lt"]
 [ext_resource type="PackedScene" uid="uid://drlhev2sp24mu" path="res://assets/3D_models/furniture/STFwardrobe_002.glb" id="16_rud37"]
 [ext_resource type="PackedScene" uid="uid://cqt6r666m6vp7" path="res://assets/3D_models/furniture/STFsmall_sofa.glb" id="19_1hqly"]
@@ -25,11 +27,14 @@
 [ext_resource type="PackedScene" uid="uid://ks7yf6y1xjjj" path="res://assets/3D_models/furniture/kitchen/STFdish_wash.glb" id="22_3d6v5"]
 [ext_resource type="PackedScene" uid="uid://cp8soaqq2qcsq" path="res://assets/3D_models/furniture/kitchen/STFcoking_closet.glb" id="23_pc3jy"]
 [ext_resource type="PackedScene" uid="uid://bh0gxb4lng25d" path="res://assets/3D_models/furniture/kitchen/STFcoking_closet_2.glb" id="24_jlgg2"]
+[ext_resource type="PackedScene" uid="uid://22ic2qm0cybm" path="res://assets/3D_models/furniture/wall_lamp.glb" id="26_0kjbf"]
 [ext_resource type="PackedScene" uid="uid://5hecwggjaf5g" path="res://assets/3D_models/toilet/STFtooth_brush.glb" id="26_nji0c"]
 [ext_resource type="PackedScene" uid="uid://bld6oa60sw6jp" path="res://assets/3D_models/toilet/STFbathtub_005.glb" id="26_pc3jy"]
 [ext_resource type="PackedScene" uid="uid://djkqmegfe8dgb" path="res://assets/3D_models/toilet/STFtrash_can.glb" id="27_wxiyl"]
 [ext_resource type="PackedScene" uid="uid://da1w2vh8qq15m" path="res://assets/3D_models/toilet/STFwccloset.glb" id="28_utoi4"]
 [ext_resource type="PackedScene" uid="uid://ceo6tnejnwyuf" path="res://assets/3D_models/furniture/STFshelves.glb" id="30_0kjbf"]
+[ext_resource type="PackedScene" uid="uid://dcauwbuo3ih6c" path="res://assets/3D_models/furniture/STFshelves_2.glb" id="31_57ewp"]
+[ext_resource type="PackedScene" uid="uid://dne13caop0p6t" path="res://assets/3D_models/toilet/STFwccloset_2.glb" id="33_p6wke"]
 
 [node name="AssetTest" type="Node3D"]
 
@@ -66,11 +71,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="STFwall2" parent="room_tiles" instance=ExtResource("10_mqtf0")]
 
+[node name="STFwall3" parent="room_tiles" instance=ExtResource("10_mqtf0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
 [node name="STFdoor_frame2" parent="room_tiles" instance=ExtResource("11_d6qyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
+[node name="STFdoor_frame3" parent="room_tiles" instance=ExtResource("11_d6qyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="STFdoor_frame" parent="room_tiles/STFdoor_frame3" index="0"]
+surface_material_override/0 = ExtResource("12_p6wke")
+
 [node name="STFfloor_tile2" parent="room_tiles" instance=ExtResource("12_1sbf2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="STFfloor_tile" parent="room_tiles/STFfloor_tile2" index="0"]
+surface_material_override/0 = ExtResource("14_uqigf")
+
+[node name="STFfloor_tile3" parent="room_tiles" instance=ExtResource("12_1sbf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="STFfloor_tile4" parent="room_tiles" instance=ExtResource("12_1sbf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="STFfloor_tile5" parent="room_tiles" instance=ExtResource("12_1sbf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+
+[node name="STFfloor_tile6" parent="room_tiles" instance=ExtResource("12_1sbf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
 
 [node name="door" type="Node3D" parent="room_tiles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
@@ -82,6 +111,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="furniture" type="Node3D" parent="."]
+
+[node name="STFshelves_22" parent="furniture" instance=ExtResource("31_57ewp")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 5)
+
+[node name="STFshelves2" parent="furniture" instance=ExtResource("30_0kjbf")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 6)
+visible = false
 
 [node name="STFwindow2" parent="furniture" instance=ExtResource("13_ar3pi")]
 
@@ -100,37 +136,53 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 [node name="STFsmall_sofa2" parent="furniture" instance=ExtResource("19_1hqly")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3, 0, 3)
 
+[node name="STFsmall_sofa3" parent="furniture" instance=ExtResource("19_1hqly")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3, 0, 1)
+
 [node name="STFbig_sofa2" parent="furniture" instance=ExtResource("20_e8qcw")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0, 4)
 
 [node name="kitchen" type="Node3D" parent="."]
-visible = false
 
 [node name="STFwashing_machine2" parent="kitchen" instance=ExtResource("21_nj12y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 4)
 
 [node name="STFdish_wash2" parent="kitchen" instance=ExtResource("22_3d6v5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
 
 [node name="STFcoking_closet2" parent="kitchen" instance=ExtResource("23_pc3jy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
 
 [node name="STFcoking_closet_22" parent="kitchen" instance=ExtResource("24_jlgg2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
+
+[node name="wall_lamp" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="wall_lamp2" parent="wall_lamp" instance=ExtResource("26_0kjbf")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="wall_lamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8703935, -0.26525748)
+light_energy = 0.471
 
 [node name="WC" type="Node3D" parent="."]
 
 [node name="STFtooth_brush2" parent="WC" instance=ExtResource("26_nji0c")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4.30176, 1.3082516, -2.3783634)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4.30176, 1.3155165, -2.3458118)
+visible = false
 
 [node name="STFtrash_can2" parent="WC" instance=ExtResource("27_wxiyl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 5, 0, -2)
 
 [node name="STFwccloset2" parent="WC" instance=ExtResource("28_utoi4")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
 
 [node name="STFbathtub_0052" parent="WC" instance=ExtResource("26_pc3jy")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3, 0, -1)
 
-[node name="STFshelves2" parent="." instance=ExtResource("30_0kjbf")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0, 1)
+[node name="STFwccloset_22" parent="WC" instance=ExtResource("33_p6wke")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4, 0, -2)
+
+[editable path="room_tiles/STFdoor_frame3"]
+[editable path="room_tiles/STFfloor_tile2"]
+[editable path="furniture/STFsmall_sofa3"]

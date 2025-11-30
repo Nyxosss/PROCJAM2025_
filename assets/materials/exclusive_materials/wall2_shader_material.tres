@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://clc1vnbtsrsfh"]
+
+[ext_resource type="Shader" uid="uid://lq1qva2tuia2" path="res://assets/materials/shaders/wall_shader.tres" id="1_c56rm"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_c56rm")
+shader_parameter/IntParameter = 1
