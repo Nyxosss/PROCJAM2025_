@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://x52m0y4q7fp"]
+[gd_scene load_steps=3 format=3 uid="uid://x52m0y4q7fp"]
 
 [ext_resource type="Script" uid="uid://bwopwdmiabvkt" path="res://scripts/end_screen.gd" id="1_glvt5"]
+[ext_resource type="AudioStream" uid="uid://c00jjd7y67jph" path="res://assets/audio/music/play_ menu.mp3" id="2_236wu"]
 
 [node name="loose_screen" type="Control"]
 layout_mode = 3
@@ -25,3 +26,9 @@ theme_override_font_sizes/font_size = 30
 text = "They escaped, you loose
 Press any key to return to the Main Menu"
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_236wu")
+autoplay = true
+bus = &"Music"
