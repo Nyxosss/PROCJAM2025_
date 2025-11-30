@@ -56,13 +56,13 @@ func create_dungeon():
 			dun_cell.position = Vector3(cell) + Vector3(0.5, 0, 0.5)
 			add_child(dun_cell)
 
-			# --- NEW: register this dun_cell to its room ---
+			# --- register this dun_cell to its room ---
 			var room_id = tile_to_room_id.get(cell, -1)
 			if room_id != -1:
 				if not room_nodes.has(room_id):
 					room_nodes[room_id] = []
 				room_nodes[room_id].append(dun_cell)
-			# -----------------------------------------------
+
 			for i in 4:
 				var cell_n : Vector3i = cell + directions.values()[i]
 				var cell_n_index : int = grid_map.get_cell_item(cell_n)

@@ -5,6 +5,7 @@ var grid_map: GridMap = null
 @export var dun_mesh_path : NodePath
 @onready var dun_mesh : Node3D = get_node(dun_mesh_path)
 @export var player_path: NodePath
+@onready var room_objects_root := $RoomObjs
 
 func get_grid_map() -> GridMap:
 	if grid_map == null:
@@ -28,6 +29,8 @@ func set_start(val: bool) -> void:
 @export var room_size : int = 7
 @export var room_amount: int = 5
 @export var room_margin: int = 0
+@export var room_object_scene: PackedScene
+var room_objects := {}  # room_id → spawned object
 var tile_to_room_id := {}
 var tile_to_door_id := {}
 
@@ -67,6 +70,9 @@ func visualize_border():
 		grid_map.set_cell_item(Vector3i(-1,0,i),0)
 
 func generate():
+	for c in room_objects_root.get_children():
+		c.queue_free()
+	room_objects.clear()
 	room_tiles.clear()
 	room_pos.clear()
 	visualize_border()
@@ -74,7 +80,7 @@ func generate():
 	for i in range(room_amount):
 		make_room(current_room_id)
 		current_room_id += 1
-	
+
 	var half_size = int(room_size / 2)  # 3
 	var center = room_pos[0]
 	var door_tile = Vector3i(
@@ -109,7 +115,7 @@ func generate():
 	dun_mesh.create_dungeon()
 	# After dun_mesh creates the dungeon, pull out the dun_cell instances
 	room_nodes = dun_mesh.room_nodes
-
+	spawn_room_objects()
 	grid_map.hide()
 	spawn_player_in_first_room()
 
@@ -314,3 +320,99 @@ func _update_room_visibility(current_room_id: int) -> void:
 		var visible = (id == current_room_id)
 		for node in room_nodes[id]:
 			node.visible = visible
+	for id in room_objects.keys():
+		room_objects[id].visible = (id == current_room_id)
+		
+#func spawn_room_objects():
+	#for i in range(room_tiles.size()):
+		#var room_id := i + 1
+		#var tiles := room_tiles[i]
+#
+		#if tiles.size() == 0:
+			#continue
+#
+		#
+		## Pick a random tile inside the room
+		#var tile := tiles[randi() % tiles.size()]
+		#
+		#var world_pos := Vector3(tile.x + 0.5, 0, tile.z + 0.5)
+#
+		#var obj := room_object_scene.instantiate()
+		#room_objects_root.add_child(obj)
+		#obj.global_position = world_pos
+		#room_objects[room_id] = obj
+
+#func spawn_room_objects():
+	#for i in range(room_tiles.size()):
+		#var room_id = i + 1
+		#var tiles := room_tiles[i]
+#
+		## Skip empty rooms
+		#if tiles.size() == 0:
+			#continue
+#
+		## Filter out tiles that are doors
+		#var valid_tiles = []
+		#for tile in tiles:
+			#if not tile_to_door_id.has(tile):
+				#valid_tiles.append(tile)
+#
+		## If no valid tiles, just skip this room
+		#if valid_tiles.size() == 0:
+			#continue
+#
+		## Pick a random tile from the remaining ones
+		#var tile = valid_tiles[randi() % valid_tiles.size()]
+		#var world_pos := Vector3(tile.x + 0.5, 0, tile.z + 0.5)
+#
+		#var obj := room_object_scene.instantiate()
+		#room_objects_root.add_child(obj)
+		#obj.global_position = world_pos
+
+func spawn_room_objects():
+	if room_object_scene == null:
+		return  # nothing to spawn
+
+	var neighbor_dirs := [
+		Vector3i(0,0,0), Vector3i(1,0,0), Vector3i(-1,0,0),
+		Vector3i(0,0,1), Vector3i(0,0,-1)
+	]
+	
+	# Clear previous objects
+	for c in room_objects_root.get_children():
+		c.queue_free()
+	room_objects.clear()
+
+	for i in range(room_tiles.size()):
+		var room_id := i + 1
+		var tiles := room_tiles[i]
+		if tiles.size() == 0:
+			continue
+
+		# Filter out tiles that are doors or adjacent to doors
+		var valid_tiles := []
+		for tile in tiles:
+			var near_door := false
+			if tile_to_door_id.has(tile):
+				near_door = true
+			for dir in neighbor_dirs:
+				if tile_to_door_id.has(Vector3i(tile) + dir):
+					near_door = true
+					break
+			if not near_door:
+				valid_tiles.append(tile)
+
+		if valid_tiles.size() == 0:
+			continue
+
+		# Pick a random tile
+		var tile = valid_tiles[randi() % valid_tiles.size()]
+		var world_pos = tile + Vector3(0.5, 0.5, 0.5)
+
+		# Instance the object and add it to the container
+		var obj := room_object_scene.instantiate()
+		room_objects_root.add_child(obj)
+		obj.global_position = world_pos
+
+		# Store reference
+		room_objects[room_id] = obj
