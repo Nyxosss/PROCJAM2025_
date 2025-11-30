@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cd45xjwltptrf"]
+[gd_scene load_steps=28 format=3 uid="uid://cd45xjwltptrf"]
 
 [ext_resource type="PackedScene" uid="uid://chnkrc5ave8nh" path="res://assets/3D_models/furniture/STFbed.glb" id="1_ucr5v"]
 [ext_resource type="PackedScene" uid="uid://d0sr6x5x3i61b" path="res://assets/3D_models/furniture/STFbedside_table.glb" id="2_c5tnc"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://8rg6qpl4hsn4" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_l.glb" id="12_4ut5d"]
 [ext_resource type="PackedScene" uid="uid://vrj2u50mlbjy" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_r.glb" id="13_vsijv"]
 [ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="14_o60j8"]
+[ext_resource type="PackedScene" uid="uid://bvbm5otinjygs" path="res://scenes/lamps.tscn" id="16_5tub5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d8k2q"]
 size = Vector3(0.44750977, 1, 1)
@@ -143,10 +144,15 @@ shape = SubResource("BoxShape3D_5tub5")
 [node name="STFshelves_22" parent="Prop" instance=ExtResource("4_868k3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.02764225)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-light_color = Color(0.9999998, 0.94605166, 0.899016, 1)
-light_energy = 2.505
+[node name="lamps" parent="." instance=ExtResource("16_5tub5")]
+transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -3, 0, 1)
+
+[node name="lamps2" parent="." instance=ExtResource("16_5tub5")]
+transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, -3, 0, -1)
+
+[node name="lamps3" parent="." instance=ExtResource("16_5tub5")]
+transform = Transform3D(-4.3711392e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -4.3711392e-08, 3, 0, -2)
+visible = false
 
 [editable path="Prop3"]
 [editable path="Prop4"]

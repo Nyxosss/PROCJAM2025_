@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8ymnsdb2pyfe"]
+[gd_scene load_steps=7 format=3 uid="uid://b8ymnsdb2pyfe"]
 
 [ext_resource type="PackedScene" uid="uid://bh0gxb4lng25d" path="res://assets/3D_models/furniture/kitchen/STFcoking_closet_2.glb" id="1_fnmbu"]
 [ext_resource type="PackedScene" uid="uid://cp8soaqq2qcsq" path="res://assets/3D_models/furniture/kitchen/STFcoking_closet.glb" id="2_hbett"]
 [ext_resource type="PackedScene" uid="uid://ks7yf6y1xjjj" path="res://assets/3D_models/furniture/kitchen/STFdish_wash.glb" id="3_ctogc"]
 [ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="3_hbett"]
 [ext_resource type="PackedScene" uid="uid://dysikck7jse2" path="res://assets/3D_models/furniture/kitchen/STFwashing_machine.glb" id="4_qxfqp"]
+[ext_resource type="PackedScene" uid="uid://bvbm5otinjygs" path="res://scenes/lamps.tscn" id="6_ctogc"]
 
 [node name="kitchen_template" type="Node3D"]
 
@@ -34,5 +35,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007892132, -0.5, 0)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
 light_color = Color(0.9999998, 0.94605166, 0.899016, 1)
 light_energy = 2.505
+
+[node name="lamps" parent="." instance=ExtResource("6_ctogc")]
+transform = Transform3D(0, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 0, -3, 0, 0)
+
+[node name="lamps2" parent="." instance=ExtResource("6_ctogc")]
+transform = Transform3D(1.0000001, 0, 7.351372e-08, 0, 1, 0, -7.351372e-08, 0, 1.0000001, 0, 0, -3)

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvbm5otinjygs"]
+
+[ext_resource type="PackedScene" uid="uid://22ic2qm0cybm" path="res://assets/3D_models/furniture/wall_lamp.glb" id="1_0wr2u"]
+
+[node name="lamps" type="Node3D"]
+transform = Transform3D(0, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 0, 0, 0, 0)
+
+[node name="wall_lamp2" parent="." instance=ExtResource("1_0wr2u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(0, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, 0, 0, 1.8999916, -0.2295425)
+light_color = Color(0.9999998, 0.94605166, 0.899016, 1)
+light_energy = 2.505

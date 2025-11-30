@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://stm3f7br6bos"]
+[gd_scene load_steps=15 format=3 uid="uid://stm3f7br6bos"]
 
 [ext_resource type="PackedScene" uid="uid://bst8uppbkr2sf" path="res://assets/3D_models/furniture/STFbig_sofa.glb" id="1_c8psm"]
 [ext_resource type="PackedScene" uid="uid://cqt6r666m6vp7" path="res://assets/3D_models/furniture/STFsmall_sofa.glb" id="2_wjqbq"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://8rg6qpl4hsn4" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_l.glb" id="11_qbt8x"]
 [ext_resource type="PackedScene" uid="uid://dayjyio5g81k8" path="res://scenes/prop.tscn" id="11_wjqbq"]
 [ext_resource type="PackedScene" uid="uid://vrj2u50mlbjy" path="res://assets/3D_models/furniture/carpet_tiles/STFcarpet_side_r.glb" id="12_0u057"]
+[ext_resource type="PackedScene" uid="uid://bvbm5otinjygs" path="res://scenes/lamps.tscn" id="14_msu0p"]
 
 [node name="living_room_template" type="Node3D"]
 
@@ -57,12 +58,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.999013, 0.5, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14181745, -0.5, 0.58747053)
 
 [node name="Prop3" parent="." instance=ExtResource("11_wjqbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17079198, 0.5, -1.8306767)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -2)
 
 [node name="STFsmall_sofa2" parent="Prop3" instance=ExtResource("2_wjqbq")]
-transform = Transform3D(0.5150381, 0, -0.8571673, 0, 1, 0, 0.8571673, 0, 0.5150381, 0.009824634, -0.44542217, -0.39769924)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 light_color = Color(0.9999998, 0.94605166, 0.899016, 1)
 light_energy = 2.505
+
+[node name="lamps" parent="." instance=ExtResource("14_msu0p")]
+transform = Transform3D(0, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 0, -3, 0, 0)
+
+[node name="lamps2" parent="." instance=ExtResource("14_msu0p")]
+transform = Transform3D(1.0000001, 0, -4.3711392e-08, 0, 1, 0, 4.3711392e-08, 0, 1.0000001, 0, 0, -3)
