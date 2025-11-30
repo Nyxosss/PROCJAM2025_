@@ -11,6 +11,9 @@ var behavior_weights: Dictionary = {
 }
 var behavior_choice_array: Array[Behavior]
 
+const SFX_MURDER_GUY := preload("res://assets/audio/sfx/murder_guy.wav")
+const SFX_MURDER_GIRL := preload("res://assets/audio/sfx/murder_girl.wav")
+
 #PROP LOGIC
 var current_prop: Prop
 var destination_prop: Prop
@@ -27,7 +30,7 @@ var my_turn: bool = false
 #
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var mesh: MeshInstance3D = $Mesh
-
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 var current_room_id : int
 
 signal died(npc)
@@ -130,6 +133,8 @@ func fill_behavior_choice_array() -> void:
 	
 func die() -> void:
 	#get_parent().call_deferred("remove_child", self)
+	audio_stream_player.stream = SFX_MURDER_GUY if randi_range(false, true) else SFX_MURDER_GIRL
+	audio_stream_player.play()
 	emit_signal("died", self)
 	queue_free()
 
