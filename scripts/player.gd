@@ -16,6 +16,8 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 const RUNNING_ANIM := preload("res://assets/Characters/animations/running.res")
 const DYING_ANIM := preload("res://assets/Characters/animations/dying.res")
 
+const SFX_FOOTSTEPS := preload("res://assets/audio/sfx/footsteps.tres")
+
 var my_turn: bool = true
 var health: int = 10
 var is_moving: bool = false
