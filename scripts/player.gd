@@ -9,6 +9,8 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var npc_detection_collision: CollisionShape3D = $NpcDetectionArea/NpcDetectionCollision
 @onready var node_3d: Node3D = $".."
 
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
@@ -67,6 +69,7 @@ func select_destination(event: InputEvent) -> void:
 			)
 			print('TIME FOR PLAYER TO MOVE TO: ', destination_tile_pos)
 			is_moving = true
+			audio_stream_player.play()
 		else:
 			print('NOT VALID LOCATION')
 
@@ -74,6 +77,7 @@ func move_to_location(delta: float) -> void:
 	self.global_position = self.global_position.move_toward(
 		destination_tile_pos, delta * 5.0)
 	if self.global_position.distance_to(destination_tile_pos) <= 0.01:
+		audio_stream_player.stop()
 		self.global_position = destination_tile_pos
 		print('PLAYER DONE MOVING')
 		print('RESTRUCTURING DESTINATION TILES')

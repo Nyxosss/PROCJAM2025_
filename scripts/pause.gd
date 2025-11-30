@@ -1,6 +1,7 @@
+class_name Pause
 extends Node
 
-var _pause_menu: PauseMenu = preload("uid://c5y4c5v1mu8qm").instantiate()
+var _pause_menu: PauseMenu = preload("res://scenes/pause_menu.tscn").instantiate()
 
 
 func _init() -> void:
