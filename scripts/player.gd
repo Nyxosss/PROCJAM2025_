@@ -10,6 +10,11 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var node_3d: Node3D = $".."
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var mesh: Node3D = $Mesh
+@onready var mesh_animation_player: AnimationPlayer = $Mesh/AnimationPlayer
+
+const RUNNING_ANIM := preload("res://assets/Characters/animations/running.res")
+const DYING_ANIM := preload("res://assets/Characters/animations/dying.res")
 
 var my_turn: bool = true
 var health: int = 10
@@ -25,7 +30,8 @@ var end_turn_time: float = 1.0
 var end_turn_timer: float = 1.0
 
 func _ready() -> void:
-	pass
+	mesh_animation_player.get_animation_library("").add_animation(&"running", RUNNING_ANIM)
+	mesh_animation_player.get_animation_library("").add_animation(&"dying", DYING_ANIM)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("click") and \
@@ -66,7 +72,12 @@ func select_destination(event: InputEvent) -> void:
 			)
 			print('TIME FOR PLAYER TO MOVE TO: ', destination_tile_pos)
 			is_moving = true
+
 			audio_stream_player.play()
+			mesh_animation_player.play(&"running")
+			look_at(intersected_floor_tile.global_position, Vector3.UP, true)
+			rotation.x = 0
+			rotation.y -= PI / 2.0
 		else:
 			print('NOT VALID LOCATION')
 
@@ -83,6 +94,10 @@ func move_to_location(delta: float) -> void:
 		end_turn_flag = true
 		
 func begin_next_turn_countdown(delta: float) -> void:
+	if mesh_animation_player.current_animation != &"RESET":
+		mesh_animation_player.play(&"RESET")
+		rotation.y += PI / 2.0
+
 	end_turn_time -= delta
 	if end_turn_time <= 0.0:
 		end_turn()
