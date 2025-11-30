@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dudf1qmatkdw4"]
+[gd_scene load_steps=14 format=3 uid="uid://dudf1qmatkdw4"]
 
 [ext_resource type="Script" uid="uid://draefwoe08fe3" path="res://scenes/room_generation_script.gd" id="1_si52b"]
 [ext_resource type="PackedScene" uid="uid://bki2o5krs61cg" path="res://scenes/room_tiles.tscn" id="2_01n6w"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bs3vtubjkb06l" path="res://scripts/camera.gd" id="9_58gk3"]
 [ext_resource type="PackedScene" uid="uid://b14hr86quckjd" path="res://scenes/player.tscn" id="10_to7gp"]
 [ext_resource type="PackedScene" uid="uid://ca3bh0jpl15fv" path="res://scenes/npc.tscn" id="11_u0fll"]
+[ext_resource type="PackedScene" uid="uid://c5y4c5v1mu8qm" path="res://scenes/pause_menu.tscn" id="13_4w45t"]
 [ext_resource type="Script" uid="uid://cw32bmtbk6m3d" path="res://scripts/turn_manager.gd" id="13_k67gn"]
 [ext_resource type="Script" uid="uid://b0c8tlw4jtibp" path="res://scenes/dun_mesh.gd" id="14_k3g67"]
 
@@ -591,3 +592,6 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
+
+[node name="PauseMenu" parent="." instance=ExtResource("13_4w45t")]
+visible = false

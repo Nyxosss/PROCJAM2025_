@@ -7,6 +7,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var npc_detection_area: Area3D = $NpcDetectionArea
 @onready var npc_detection_collision: CollisionShape3D = $NpcDetectionArea/NpcDetectionCollision
+@onready var node_3d: Node3D = $".."
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -49,6 +50,13 @@ func select_destination(event: InputEvent) -> void:
 	if event is InputEventMouseButton and not is_moving and event.is_pressed():
 		print('PLAYER POSITION: ', global_position)
 		var intersected_floor_tile: StaticBody3D = camera_3d.shoot_ray()
+		if intersected_floor_tile == null:
+			print("none intersected")
+			return
+		if intersected_floor_tile.name.begins_with("door_colision_"):
+			open_door(intersected_floor_tile)
+			return
+		
 		print('DESTINATION TILES: ', destination_tiles)
 		print('INTERSECTED FLOOR TILE: ', intersected_floor_tile)
 		if destination_tiles.has(intersected_floor_tile):
@@ -110,3 +118,23 @@ func get_tiles_around(center: Vector3, radius: float) -> Array:
 func _on_npc_detection_area_body_entered(body: Node3D) -> void:
 	if body is Npc and self.my_turn:
 		body.trigger_behavior()
+
+func open_door(door_body: StaticBody3D) -> void:
+
+	if door_body.has_method("use"):
+		print("USE CALLED ON: ", door_body)
+		door_body.use()
+		open_sibling_door(door_body)
+	else:
+		print("Hit, but collider has no use() method")
+
+func open_sibling_door(clicked_door):
+	var clicked_id = clicked_door.door_id
+	if clicked_id == -1:
+		return
+
+	# Find ALL door nodes in the dungeon and interact with same-id ones
+	for door in node_3d.get_tree().get_nodes_in_group("door"):
+		print("found")
+		if door != clicked_door and door.door_id == clicked_id:
+			door.use()

@@ -23,6 +23,14 @@ func _ready() -> void:
 	bathroom = $"../RoomTemplates/bathroom_template"
 	bedroom = $"../RoomTemplates/BedroomTemplate"
 	add_player_and_npcs()
+	for npc in npc_node.get_children():
+		npc.died.connect(_on_npc_died)
+
+func _on_npc_died(npc: Npc) -> void:
+	print("npc morreu")
+	npcs.erase(npc)
+	if npcs.size() <= 0:
+		end_game_win()
 
 func wait_for_children() -> void:
 	while room_templates.get_child_count() != 4:
@@ -38,8 +46,9 @@ func _physics_process(delta: float) -> void:
 	
 	if player != null:
 		health_label.text = "PLAYER HP: " + str(player.health)
-	if npcs.size() > 0:
-		npc_num_label.text = "NPCS LEFT: " + str(npcs.size())
+	if player.health <= 0:
+		end_game_lose()
+	npc_num_label.text = "NPCS LEFT: " + str(npcs.size())
 # ----------------------------------------------
 
 func add_player_and_npcs() -> void:
@@ -47,10 +56,6 @@ func add_player_and_npcs() -> void:
 		npcs.append(npc)
 		if player != null:
 			npc.player = player
-	#for child in owner.get_children():
-		#if child is Prop:
-			#for npc: Npc in npcs:
-				#npc.prop_list.append(child)
 	set_all_props()
 	
 func all_npcs_done() -> bool:
@@ -63,12 +68,16 @@ func all_npcs_done() -> bool:
 			break
 	if all_npcs_ended:
 		player.my_turn = true
-	print('ARE ALL NPCS DONE? ', all_npcs_ended)
+	#print('ARE ALL NPCS DONE? ', all_npcs_ended)
 	return all_npcs_ended
 
 func now_its_players_turn() -> void:
-	for npc: Npc in npcs:
-		npc.my_turn = false
+	#npcs = npcs.filter(is_instance_valid)
+	for npc in npcs:
+		if is_instance_valid(npc):
+			npc.my_turn = false
+	#for npc: Npc in npcs:
+		#npc.my_turn = false
 	print('PLAYER TURN')
 	turn_label.text = "PLAYER TURN"
 	player.my_turn = true
@@ -76,7 +85,10 @@ func now_its_players_turn() -> void:
 
 func now_its_npcs_turn() -> void:
 	for npc: Npc in npcs:
-		npc.my_turn = true
+		if is_instance_valid(npc):
+			npc.my_turn = true
+		else:
+			continue
 		npc.is_moving = true
 		npc.select_prop_flag = true
 		if not npc.axis_lock_linear_y:
@@ -104,3 +116,14 @@ func set_all_props():
 		if child is Prop:
 			for npc: Npc in npcs:
 				npc.prop_list.append(child)
+
+func end_game_win():
+	print("PLAYER WIIIINS")
+	var pause_menu: PauseMenu = $"../PauseMenu"
+	pause_menu.visible = true
+
+	
+func end_game_lose():
+	print("PLAYER LOOOOOOSE")
+	var pause_menu: PauseMenu = $"../PauseMenu"
+	pause_menu.visible = true

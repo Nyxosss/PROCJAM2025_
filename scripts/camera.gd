@@ -55,17 +55,23 @@ func shoot_ray() -> StaticBody3D:
 	ray_query.collide_with_areas = false
 	ray_query.collide_with_bodies = true
 
-	# IMPORTANT: Only detect floor tiles (Layer 1)
-	ray_query.collision_mask = 1 << 0
+	#Only detect floor tiles (Layer 1)
+	#ray_query.collision_mask = 1 << 0
+	ray_query.collision_mask = (1 << 0) | (1 << 1)
+
 
 	var result = space.intersect_ray(ray_query)
 
 	if result and result.has("collider"):
 		var body := result["collider"] as Node3D
 
-		if body is StaticBody3D and body.name == "floor_colision":
-			print("HIT BODY WITH NAME:", body.name)
+		if body is StaticBody3D and (
+			body.name == "floor_colision" or
+			body.name.begins_with("door_colision_")
+		):
+			print("colide" + str(body))
 			return body
+
 
 	print("Ray hit something else or nothing")
 	return null

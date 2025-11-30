@@ -28,6 +28,7 @@ var my_turn: bool = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var mesh: MeshInstance3D = $Mesh
 
+signal died(npc)
 
 func _ready() -> void:
 	mesh.hide()
@@ -113,6 +114,7 @@ func trigger_behavior() -> void:
 			attack_and_run(get_physics_process_delta_time())
 	
 func fill_behavior_choice_array() -> void:
+	behavior_choice_array.clear()
 	var max_size: int = 20
 	var die_amount: int = max_size * behavior_weights[Behavior.DIE]
 	var atk_run_amount: int = max_size * behavior_weights[Behavior.ATK_RUN_AWAY]
@@ -123,6 +125,8 @@ func fill_behavior_choice_array() -> void:
 	print('BEHAVIOR CHOICE ARRAY: ', behavior_choice_array)
 	
 func die() -> void:
+	#get_parent().call_deferred("remove_child", self)
+	emit_signal("died", self)
 	queue_free()
 
 func attack_and_run(delta: float) -> void:
