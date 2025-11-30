@@ -11,7 +11,7 @@ signal back_button_pressed
 
 func _on_resolution_scale_slider_value_changed(value: float) -> void:
 	get_window().scaling_3d_scale = value
-	_resolution_scale_value.text = str(roundi(value * 100.0)) + "%"
+	_resolution_scale_value.text = "%d%%" % roundi(value * 100.0)
 
 
 func _on_window_mode_button_item_selected(index: int) -> void:
@@ -25,16 +25,18 @@ func _on_window_mode_button_item_selected(index: int) -> void:
 
 
 func _on_master_volume_slider_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_linear(0, value)
-	_master_volume_value.text = str(roundi(value)) + "%"
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index(&"Master"), value)
+	_master_volume_value.text = "%d%%" % roundi(value * 100.0)
 
 
 func _on_music_volume_slider_value_changed(value: float) -> void:
-	_music_volume_value.text = str(roundi(value)) + "%"
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index(&"Music"), value)
+	_music_volume_value.text = "%d%%" % roundi(value * 100.0)
 
 
 func _on_sfx_volume_slider_value_changed(value: float) -> void:
-	_sfx_volume_value.text = str(roundi(value)) + "%"
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index(&"SFX"), value)
+	_sfx_volume_value.text = "%d%%" % roundi(value * 100.0)
 
 
 func _on_v_sync_button_item_selected(index: int) -> void:
