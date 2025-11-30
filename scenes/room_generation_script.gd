@@ -109,15 +109,15 @@ func generate():
 			#error_label.visible = true
 		current_room_id += 1
 
-	var half_size = int(room_size / 2)  # 3
-	var center = room_pos[0]
-	var door_tile = Vector3i(
-		int(center.x) + first_room_reserved_dir.x * half_size,
-		0,
-		int(center.z) + first_room_reserved_dir.z * half_size
-	)
-	grid_map.set_cell_item(door_tile, 2)  # 2 = door
-	tile_to_door_id[door_tile] = current_door_id
+	#var half_size = int(room_size / 2)  # 3
+	#var center = room_pos[0]
+	#var door_tile = Vector3i(
+		#int(center.x) + first_room_reserved_dir.x * half_size,
+		#0,
+		#int(center.z) + first_room_reserved_dir.z * half_size
+	#)
+	#grid_map.set_cell_item(door_tile, 2)  # 2 = door
+	#tile_to_door_id[door_tile] = current_door_id
 
 	#var first_room_center = room_pos[0]
 	#var door_pos = Vector3i(first_room_center) + first_room_reserved_dir * -3

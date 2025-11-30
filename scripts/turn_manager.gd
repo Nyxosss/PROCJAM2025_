@@ -127,14 +127,12 @@ func set_all_props():
 
 func end_game_win():
 	print("PLAYER WIIIINS")
-	var pause_menu: PauseMenu = $"../PauseMenu"
-	pause_menu.visible = true
+	get_tree().change_scene_to_file("res://scenes/win_screen.tscn")
 
 	
 func end_game_lose():
 	print("PLAYER LOOOOOOSE")
-	var pause_menu: PauseMenu = $"../PauseMenu"
-	pause_menu.visible = true
+	get_tree().change_scene_to_file("res://scenes/loose_screen.tscn")
 
 
 func count_npcs_in_same_room() -> int:

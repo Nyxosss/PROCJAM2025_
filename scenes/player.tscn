@@ -55,6 +55,7 @@ stream_20/stream = ExtResource("15_jc3p3")
 stream_21/stream = ExtResource("16_hax0n")
 
 [node name="Player" type="CharacterBody3D"]
+collision_mask = 5
 script = ExtResource("1_3vyb7")
 
 [node name="Collision" type="CollisionShape3D" parent="."]

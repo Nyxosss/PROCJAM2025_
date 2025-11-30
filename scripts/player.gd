@@ -18,11 +18,15 @@ var prop_being_observed: Prop
 
 var destination_tiles: Array = []
 var destination_tile_pos: Vector3
-var tile_radius: float = 4.0
+var tile_radius: float = 2.0
 
 var end_turn_flag: bool = false
 var end_turn_time: float = 1.0
 var end_turn_timer: float = 1.0
+
+var movement_points := 2
+var max_movement_points := 2
+
 
 func _ready() -> void:
 	pass
@@ -80,7 +84,12 @@ func move_to_location(delta: float) -> void:
 		print('RESTRUCTURING DESTINATION TILES')
 		destination_tiles = get_tiles_around(global_position, tile_radius)
 		print('PLAYER IS GOING TO TRY AND DETECT NPCS NEAR HIM')
-		end_turn_flag = true
+		movement_points -= 1
+		is_moving = false   # allow selecting another tile
+
+		# If no movement points left, end the turn
+		if movement_points <= 0:
+			end_turn_flag = true
 		
 func begin_next_turn_countdown(delta: float) -> void:
 	end_turn_time -= delta
