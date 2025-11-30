@@ -5,7 +5,7 @@ var grid_map: GridMap = null
 @export var dun_mesh_path : NodePath
 @onready var dun_mesh : Node3D = get_node(dun_mesh_path)
 @export var player_path: NodePath
-@onready var room_objects_root := $RoomObjs
+#@onready var room_objects_root := $RoomObjs
 @onready var room_templates: Node3D = $RoomTemplates
 @export var npc_node: Node
 
@@ -39,7 +39,8 @@ func set_start(val: bool) -> void:
 @export var living_room_template: PackedScene
 var used_rooms := []
 
-var room_objects := {}  # room_id → spawned object
+#var room_objects := {}  # room_id → spawned object
+var room_templates_id := {}
 var tile_to_room_id := {}
 var tile_to_door_id := {}
 
@@ -79,11 +80,12 @@ func visualize_border():
 		grid_map.set_cell_item(Vector3i(-1,0,i),0)
 
 func generate():
-	for c in room_objects_root.get_children():
-		c.queue_free()
+	#for c in room_objects_root.get_children():
+		#c.queue_free()
 	for c in room_templates.get_children():
 		c.queue_free()
-	room_objects.clear()
+	#room_objects.clear()
+	room_templates_id.clear()
 	used_rooms.clear()
 	room_tiles.clear()
 	room_pos.clear()
@@ -409,102 +411,8 @@ func _update_room_visibility(current_room_id: int) -> void:
 		var visible = (id == current_room_id)
 		for node in room_nodes[id]:
 			node.visible = visible
-	for id in room_objects.keys():
-		room_objects[id].visible = (id == current_room_id)
-		
-#func spawn_room_objects():
-	#for i in range(room_tiles.size()):
-		#var room_id := i + 1
-		#var tiles := room_tiles[i]
-#
-		#if tiles.size() == 0:
-			#continue
-#
-		#
-		## Pick a random tile inside the room
-		#var tile := tiles[randi() % tiles.size()]
-		#
-		#var world_pos := Vector3(tile.x + 0.5, 0, tile.z + 0.5)
-#
-		#var obj := room_object_scene.instantiate()
-		#room_objects_root.add_child(obj)
-		#obj.global_position = world_pos
-		#room_objects[room_id] = obj
-
-#func spawn_room_objects():
-	#for i in range(room_tiles.size()):
-		#var room_id = i + 1
-		#var tiles := room_tiles[i]
-#
-		## Skip empty rooms
-		#if tiles.size() == 0:
-			#continue
-#
-		## Filter out tiles that are doors
-		#var valid_tiles = []
-		#for tile in tiles:
-			#if not tile_to_door_id.has(tile):
-				#valid_tiles.append(tile)
-#
-		## If no valid tiles, just skip this room
-		#if valid_tiles.size() == 0:
-			#continue
-#
-		## Pick a random tile from the remaining ones
-		#var tile = valid_tiles[randi() % valid_tiles.size()]
-		#var world_pos := Vector3(tile.x + 0.5, 0, tile.z + 0.5)
-#
-		#var obj := room_object_scene.instantiate()
-		#room_objects_root.add_child(obj)
-		#obj.global_position = world_pos
-
-func spawn_room_objects():
-	if room_object_scene == null:
-		return  # nothing to spawn
-
-	var neighbor_dirs := [
-		Vector3i(0,0,0), Vector3i(1,0,0), Vector3i(-1,0,0),
-		Vector3i(0,0,1), Vector3i(0,0,-1)
-	]
-	
-	# Clear previous objects
-	for c in room_objects_root.get_children():
-		c.queue_free()
-	room_objects.clear()
-
-	for i in range(room_tiles.size()):
-		var room_id := i + 1
-		var tiles := room_tiles[i]
-		if tiles.size() == 0:
-			continue
-
-		# Filter out tiles that are doors or adjacent to doors
-		var valid_tiles := []
-		for tile in tiles:
-			var near_door := false
-			if tile_to_door_id.has(tile):
-				near_door = true
-			for dir in neighbor_dirs:
-				if tile_to_door_id.has(Vector3i(tile) + dir):
-					near_door = true
-					break
-			if not near_door:
-				valid_tiles.append(tile)
-
-		if valid_tiles.size() == 0:
-			continue
-
-		# Pick a random tile
-		var tile = valid_tiles[randi() % valid_tiles.size()]
-		var world_pos = tile + Vector3(0.5, 0.5, 0.5)
-
-		# Instance the object and add it to the container
-		var obj := room_object_scene.instantiate()
-		room_objects_root.add_child(obj)
-		obj.global_position = world_pos
-
-		# Store reference
-		room_objects[room_id] = obj
+	for id in room_templates_id.keys():
+		room_templates_id[id].visible = (id == current_room_id)
 
 func place_template_in_random_room(template_scene: PackedScene) -> Node3D:
 	if room_tiles.size() <= 1:
@@ -531,5 +439,6 @@ func place_template_in_random_room(template_scene: PackedScene) -> Node3D:
 
 	# Mark this room as used
 	used_rooms.append(room_index)
-
+	#var room_id = tile_to_room_id.get(room_center, -1)
+	room_templates_id[room_index + 1] = template_instance
 	return template_instance
