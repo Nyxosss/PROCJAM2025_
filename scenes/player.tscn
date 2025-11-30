@@ -61,7 +61,7 @@ script = ExtResource("1_3vyb7")
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_u8vuu")
 
-[node name="manprocjam1 running" parent="." instance=ExtResource("2_g2els")]
+[node name="Mesh" parent="." instance=ExtResource("2_g2els")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -1, 0)
 
 [node name="NpcDetectionArea" type="Area3D" parent="."]
