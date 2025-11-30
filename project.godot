@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PROCJAM2025_OwnPart"
-run/main_scene="uid://bgrrave63joy2"
+run/main_scene="uid://gn6a2t8hf0da"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
