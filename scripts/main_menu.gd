@@ -2,8 +2,11 @@ extends Control
 
 var _options_menu: OptionsMenu = preload("res://scenes/options_menu.tscn").instantiate()
 
+
 func _init() -> void:
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index(&"Music"), 0.5)
 	_options_menu.back_button_pressed.connect(_on_options_menu_back_button_pressed)
+
 
 func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_scene.tscn")
